@@ -1,0 +1,100 @@
+page{
+  background: #ffffff;
+}
+.continer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.header{
+  width: 100%;
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 333;
+}
+.topTitle{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.jianImg{
+  width: 50rpx;
+  height: 50rpx;
+}
+.inputBox{
+  width: 640rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #f4f4f4;
+  border-radius: 5px;
+  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+}
+.userHeadImg{
+  width: 96rpx;
+  height: 96rpx;
+}
+.inputBox text{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size:24rpx;
+  color: #a9a9ab;
+}
+.input2{
+  display: flex;
+  height: 80rpx;
+  line-height: 80rpx;
+  flex: 1;
+  color: #333333;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  padding-left: 30rpx;
+}
+.test2Img{
+  width: 26rpx;
+  height: 14rpx;
+}
+.btn1{
+  width: 640rpx;
+  height: 96rpx;
+  border-radius: 50px;
+  background:linear-gradient(to right, #fe6c5c , #ff9875);
+  color: #ffffff;
+  font-size: 34rpx;
+  text-align: center;
+  line-height: 96rpx;
+  margin-bottom: 70rpx;
+}
+.box2{
+  width: 640rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+}
+.text6{
+  font-size: 24rpx;
+  color: #a9a9ab;
+  
+}
+.btn2{
+  color: #d26a61;
+  font-size: 26rpx;
+  width: 120rpx;
+  height: 66rpx;
+  line-height: 66rpx;
+  border-radius: 20px;
+  border:1px solid #d26a61;
+}
+.text8{
+  display: block;
+  flex: 1;
+  border-bottom: 1px solid #f4f4f4;
+}

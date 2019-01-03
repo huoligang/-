@@ -1,0 +1,343 @@
+<import src="/pages/template/hint.wxml" />
+<template is="hint" data="{{hintData}}" />
+<image class='zhezhao' wx:if="{{zhezhao}}" catchtap='closeAll'></image>
+<image class='zhezhao' wx:if="{{zhezhao2}}" catchtap='closeAll'></image>
+<view class='header' style='height:{{height}};'>
+  <!-- 在线 -->
+  <text class='topTitle' style='height:{{height2-statusBarHeight}}px;line-height:{{height2-statusBarHeight}}px;'>缘分对对碰</text>
+</view>
+<block wx:if="{{!is_loading}}">
+  <view class='section {{!bottomState?"":"overflowH"}}' style='padding-top:{{height}};'>
+    <!-- 第一步 -->
+    <view class='oneBox' wx:if="{{tab==1}}" style='opacity:{{oneOpacity}}' catchtouchstart='oneCatch1' catchtouchmove='oneCatch2' catchtouchend='oneCatch3'>
+      <image class='hddImg' src='/images/index11.png'></image>
+      <image class='xsImg' src='/images/xs.png'></image>
+    </view>
+    <!-- 第二步 -->
+    <view class='twoBox' wx:if="{{tab==2}}">
+      <view class='twoBox2'>
+        <view class='leftKuai' animation="{{animationData2}}">
+          <image class='avatarSexImg1' src='{{msgData[0].gender==1?"/images/nnn.png":"/images/nnnn.png"}}'></image>
+          <image class='avatarImg1' mode='aspectFill' src='{{msgData[0].avatarurl}}'></image>
+        </view>
+        <image class='ppkImg' src='/images/ppk.png' animation="{{animationData}}"></image>
+        <view class='leftKuai' animation="{{animationData3}}">
+          <image class='avatarSexImg2' src='{{msgData[1].gender==1?"/images/nnn.png":"/images/nnnn.png"}}'></image>
+          <image class='avatarImg1' mode='aspectFill' src='{{msgData[1].avatarurl}}'></image>
+        </view>
+      </view>
+      <!-- 左边角色故事 -->
+      <view class='svBox1' animation="{{animationData4}}" wx:if="{{twoBox3State}}">
+        <image class='leftjtImg' src='/images/leftjt.png'></image>
+        <scroll-view scroll-y class='twoBox3'>
+          {{msgData[0].t_content}}\n<text class='jbText' catchtap='jbBtn' data-t_id='{{msgData[0].t_id}}'>举报</text>
+        </scroll-view>
+      </view>
+      
+      <!-- 右边角色故事 -->
+      <view class='svBox2' animation="{{animationData5}}" wx:if="{{twoBox4State}}">
+        <image class='rightjtImg' src='/images/rightjt.png'></image>
+        <scroll-view scroll-y class='twoBox4'>
+          {{msgData[1].t_content}}\n<text class='jbText' catchtap='jbBtn' data-t_id='{{msgData[1].t_id}}'>举报</text>
+        </scroll-view>
+      </view>
+      <!-- 双方个人基本信息 -->
+      <view class='userJBmsgBox' wx:if="{{twoBox5State}}">
+        <!-- 左边角色基本信息 -->
+        <view class='userJBleft'>
+          <text class='userJBname' animation="{{animationData6}}">{{msgData[0].nickname}}</text>
+          <text class='userJBbox' animation="{{animationData7}}">{{msgData[0].age}}岁</text>
+          <text class='userJBbox' animation="{{animationData8}}">{{msgData[0].height}}cm</text>
+          <text class='userJBbox' animation="{{animationData9}}">{{msgData[0].province}}</text>
+          <text class='userJBbox' animation="{{animationData10}}">籍贯：{{msgData[0].address}}</text>
+          <text class='userJBbox' animation="{{animationData10}}">{{msgData[0].industry}}</text>
+        </view>
+        <!-- 中间虚线 -->
+        <view class='userJBline'></view>
+        <!-- 右边角色基本信息 -->
+        <view class='userJBright'>
+          <text class='userJBname2' animation="{{animationData11}}">{{msgData[1].nickname}}</text> 
+          <text class='userJBbox2' animation="{{animationData12}}">{{msgData[1].age}}岁</text>
+          <text class='userJBbox2' animation="{{animationData13}}">{{msgData[1].height}}cm</text>
+          <text class='userJBbox2' animation="{{animationData14}}">{{msgData[1].province}}</text>
+          <text class='userJBbox2' animation="{{animationData15}}">籍贯：{{msgData[1].address}}</text>
+          <text class='userJBbox2' animation="{{animationData15}}">{{msgData[1].industry}}</text>
+        </view>
+      </view>
+      <!-- 双方图片信息 -->
+      <view class='userJBmsgBox2' wx:if="{{twoBox6State}}">
+        <image mode='aspectFill' class="userHeaderImg" src='{{msgData[0].head?msgData[0].head:"/images/mrt.png"}}' animation="{{animationData16}}"></image>
+        <image mode='aspectFill' class="userHeaderImg2" src='{{msgData[1].head?msgData[1].head:"/images/mrt.png"}}' animation="{{animationData17}}"></image>
+      </view>
+      <!-- 底部触摸区域 -->
+      <view class='bottomScrollBox' catchtouchstart='twoCatch1' catchtouchmove='twoCatch2' catchtouchend='twoCatch3'>
+        <view class='clickBox' catchtap='clickBoxL'></view>
+        <view class='clickBox' catchtap='clickBoxR'></view>
+      </view>
+      <image class='xsImg2' src='/images/xs.png'></image>
+      <image class='yhImg {{zyjtState?"yhImg1":""}}' animation="{{animationData18}}" src='/images/zh.png'></image>
+      <image class='yhImg {{zyjtState?"yhImg2":""}}' animation="{{animationData19}}" src='/images/yh.png'></image>
+    </view>
+    <!-- <scroll-view scroll-y bindscrolltolower="bindscrolltolowe" lower-threshold="{{10}}" style='height:972rpx;' scroll-top="0" scroll-into-view="{{intoId}}"> -->
+    <view wx:if="{{0}}" class='scroll_box' id="cnm123">
+      <block wx:for="{{msgData}}" wx:key="">
+        <view class='messageList' wx:if="{{index<2}}">
+          <view class='messageUser'>
+            <view class='HeaderImgNameText' catchtap='seeDetail' data-seeid='{{item.user_id}}'>
+              <image class='userHeadImg' src='{{item.avatarurl}}'></image>
+              <view class='nameBox'>
+                <view class='userNameText'>
+                  <image class='sexImg' src='{{item.gender==1?"/images/sex1.png":"/images/sex2.png"}}'></image>
+                  <text>{{item.nickname}}</text>
+                  <image class='xingImg' src='/images/xing.png'></image>
+                  <text>{{item.glamour}}</text>
+                </view>
+                <text class='userAgeText' wx:if="{{item.age}}">{{item.province!=null?item.province+'/':""}}{{item.age}}岁/身高{{item.height}}cm{{item.address!=null?'/老家'+item.address:""}}</text>
+                <text class='userAgeText' wx:else>这个人没有填写资料</text>
+              </view>
+            </view>
+            <form class='liaotian' bindsubmit="saveFormId" report-submit='true' catchtap='chat' data-msglist='{{item}}' data-user_id="{{item.user_id}}" data-m_id='{{item.m_id}}'>
+              <button form-type='submit' wx:if="{{item.user_id!=user_id}}" class='btn-reset liaota' catchtap='chat' data-msglist='{{item}}' data-user_id="{{item.user_id}}" data-m_id='{{item.m_id}}'>聊天</button>
+            </form>
+          </view>
+          <view class='box_text {{item.t_content.length>100&&showIdx!=(index-0+1)?"contentText":"contentText2"}}'>
+            {{item.t_content}}
+            <text class='report' catchtap='reportBtn' data-user_id="{{item.user_id}}" data-t_id='{{item.t_id}}'>举报</text>
+          </view>
+          <view class='bottomZk' wx:if="{{item.t_content.length>100}}" catchtap="showText" data-idx="{{index-0+1}}">
+            <text catchtap='showText' data-idx='{{index-0+1}}'>{{(index-0+1)==showIdx?"收起":"展开"}}</text>
+            <image class='zkImg' src='{{(index-0+1)==showIdx?"/images/22.png":"/images/2.png"}}' catchtap='showText' data-idx='{{index-0+1}}'></image>
+          </view>
+        </view>
+        <!-- 中部线 -->
+        <view class='newCenterLine' wx:if="{{index==0}}">
+          <text class='byImg' style='margin-left:-11rpx;'></text>
+          <text class='lineText'></text>
+          <view class='centerPkBox'>
+            <image class='pkImg' src='/images/pk.png'></image>
+          </view>
+          <text class='lineText'></text>
+          <text class='byImg' style='margin-right:-11rpx;'></text>
+        </view>
+      </block>
+      <view class='bottomLine'></view>
+    </view>
+    <!-- <view class='userHeaderBox'></view> -->
+    <!-- </scroll-view> -->
+
+  </view>
+  <!--  -->
+  <!-- <view wx:if="{{bottomSpace}}" style='width:100%;height:100rpx;'></view> -->
+</block>
+<!-- 悬浮按钮 -->
+  <!-- <view class='flexEnd'><image class='biImg' src='/images/4.png' catchtap='addBtn'></image></view> -->
+<!-- 弹窗 -->
+
+<!-- 我的故事弹窗 -->
+<view class='messagePop' wx:if="{{bottomState}}">
+  <view class='closeBox'>
+    <image class='popCloseBtn' src='/images/close3.png' catchtap='closeAll'></image>
+  </view>
+  <!-- <image class='popImg1' src='/images/81.png'></image> -->
+  <view class='aqTop'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>我的故事</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <scroll-view scroll-y="{{infocus}}" class='popScrollView' scroll-into-view="{{intoViewVal}}" scroll-with-animation="true">
+    <block wx:for="{{TempletList}}" wx:key="">
+      <view class='mbListBox {{now_t_id==item.t_id?"gsActive":""}}' catchtap='addMuban' data-type='1' data-itemData='{{item}}'>
+        <image class='rtpkImg' wx:if="{{now_t_id==item.t_id}}" src='/images/rtpk.png'></image>
+        <view class='zanBox'>
+          <image class='dz3Img' src='/images/dz3.png'></image>
+          <text class='dzText'>{{item.thumbup}}</text>
+        </view>
+        <view wx:if="{{bjIndex!=index}}" class='mbList'>{{item.t_content}}</view>
+        <textarea wx:if="{{bjIndex==index}}" class='mbList2' adjust-position="{{false}}" value='{{item.t_content}}' bindblur="bindblur" data-t_id="{{item.t_id}}" catchtap='listClick' data-listvalue='{{item.t_content}}' data-idx='{{index}}' data-list_idx='{{list_idx}}' bindfocus="bindfocus">
+        </textarea>
+      </view>
+    </block>
+  </scroll-view>
+  <image class='add1Img' src='/images/add1.png' catchtap='addMuban' data-type='2'></image>
+</view>
+<!-- 故事编辑弹窗 -->
+<view class='messagePop' wx:if="{{bjStoryState}}">
+  <view class='closeBox'>
+    <image class='popCloseBtn' src='/images/close3.png' catchtap='bjCloseBtn'></image>
+  </view>
+  <!-- <image class='popImg1' src='/images/81.png'></image> -->
+  <view class='aqTop'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>编辑故事</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <textarea class='mbList2' adjust-position="{{false}}" value='{{bjStoryData.t_content}}' bindblur="bindblur" ></textarea>
+  <view class='storyCompile2'>
+    <view class='storyBLeft'>
+      <button class='btn-reset bjBtn1' catchtap='deleteStory'>删除</button>
+      <button class='btn-reset bjBtn1 {{bjStoryData.t_id==now_t_id?"spk2":"spk"}}' catchtap='radioClick' data-item='{{bjStoryData}}'>{{bjStoryData.t_id==now_t_id?"PK中":"上PK台"}}</button>
+    </view>
+  </view>
+</view>
+<!-- 查看信息弹窗 -->
+<view class='seeDetailPop' wx:if="{{seeDetailState}}">
+  <image class='popCloseBtn2' src='/images/0421.png' catchtap='closeAll'></image>
+  <image class='seeDetailPopimg2' src='{{seeData.gender==1?"/images/09.png":"/images/07.png"}}'></image>
+  <text class='seeDetailPoptext2'>{{seeData.name}}　{{seeData.gender==1?'男':'女'}}　{{seeData.age+'岁'}}　{{seeData.stree==null?'':seeData.stree}}</text>
+  <view class='detailBox1'>
+    <view class='tailList'>
+      <text>身高</text>
+      <text style='color:#333333;'>{{seeData.height}}cm</text>
+    </view>
+    <view class='tailList'>
+      <text>家乡</text>
+      <text style='color:#333333;'>{{seeData.address}}</text>
+    </view>
+    <view class='tailList'>
+      <text>职业</text>
+      <text style='color:#333333;'>{{seeData.industry==null?'':seeData.industry}}</text>
+    </view>
+  </view>
+  <view class='detailCenter'>
+    <text class='line2'></text>
+    <text class='tailText1'>仅红娘可见</text>
+    <text class='line2'></text>
+  </view>
+  <view class='detailBox1'>
+    <view class='tailList'>
+      <text>姓名</text>
+      <text style='color:#333333;'>{{honglog==1?seeData.nickname:"？"}}</text>
+    </view>
+    <view class='tailList'>
+      <text>月薪</text>
+      <text style='color:#333333;'>{{honglog==1?seeData.salary:"？"}}</text>
+    </view>
+    <view class='tailList'>
+      <text>房车</text>
+      <text style='color:#333333;'>{{honglog==1?seeData.touringcar:"？"}}</text>
+    </view>
+  </view>
+  <text class='tailBottom'>联系方式：{{honglog==1?seeData.phone:"？"}}</text>
+</view>
+
+<!-- 注册信息弹窗 -->
+<view class='popS1Box' wx:if="{{popS1Box}}">
+  <text class='popS1Text1' style='margin-bottom:20rpx;'>和TA聊天简单介绍下自己</text>
+  <!-- 性别 -->
+  <!-- <picker bindchange="bindPickerChange" value="{{sexIndex}}" range="{{sexData}}">
+    <view class='inputBox'>
+      <text class='text4'>性别</text>
+      <input type='text' class='input2' disabled='disabled' value='{{sexData[sexIndex]}}'></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker> -->
+  <!-- 职业 -->
+  <view class='inputBox'>
+    <text class='text4'>职业</text>
+    <input type='text' class='input2' bindinput='bindinputIndustry'></input>
+  </view>
+  <picker bindchange="bindinputAge" value="{{ageIndex}}" range="{{ageData}}">
+    <view class='inputBox'>
+      <text class='text4'>生日</text>
+      <input type='number' class='input2' value='{{age}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>身高</text>
+    <input type='number' class='input2' bindinput="bindinputHeight" value='{{userHeight}}'></input>
+    <text class='text5'>cm</text>
+  </view>
+  <picker bindchange="bindinputAddress" bindcolumnchange="addressColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class='inputBox'>
+      <text class='text4'>家乡</text>
+      <input type='text' class='input2' value='{{multiArray[multiIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <button class='btn-reset btn3' catchtap='toTab3' style='margin-top:70rpx;'>确认</button>
+</view>
+
+<!-- 注册隐私信息弹窗 -->
+<view class='popS1Box' wx:if="{{popS2Box}}">
+  <text class='popS1Text1' style='margin-top:30rpx;'>让红娘简单了解你的信息\n方便为你牵线\n<text style='color:#ff9171'>（此部分信息仅红娘可见）</text></text>
+  <!-- 学历 -->
+  <picker bindchange="xlChange" value="{{xlIndex}}" range="{{xl}}">
+    <view class='inputBox'>
+      <text class='text4'>学历</text>
+      <input type='number' class='input2' value='{{xl[xlIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <!-- <view class='inputBox'>
+    <text class='text4'>姓名</text>
+    <input type='text' class='input2' bindinput="bindinputName"></input>
+  </view> -->
+  <!-- <view class='inputBox'>
+    <text class='text4'>职业</text>
+    <input type='text' class='input2' bindinput='bindinputIndustry'></input>
+  </view> -->
+  <picker bindchange="xzChange" value="{{xzIndex}}" range="{{xz}}">
+    <view class='inputBox'>
+      <text class='text4'>月薪</text>
+      <input type='number' class='input2' value='{{xz[xzIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="fcChange" value="{{fcIndex}}" range="{{fc}}">
+    <view class='inputBox'>
+      <text class='text4'>房车</text>
+      <input type='text' class='input2' value='{{fc[fcIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='box2'>
+    <text class='text6'>授权微信绑定的手机号<text style='font-size:22rpx;'>（仅红娘可见）</text></text>
+    <button class='btn-reset btn2' open-type='getPhoneNumber' bindgetphonenumber="bindgetphonenumber">授权</button>
+  </view>
+  <button class='btn-reset btn3' catchtap='toTab4'>确认</button>
+</view>
+<!-- 邀请信息弹窗 -->
+<view class='yqPop' wx:if="{{yqPopState}}">
+  <image class='colseImg3' src='/images/close3.png' catchtap='yqCloseBtn'></image>
+  <text class='yqText'>您推荐了一个新用户<text style='color:#fe695a;'>{{yqText.nickName}}</text>\n魅力值
+  <text style='color:#fe695a;'>+1</text></text>
+  <button open-type='share' class='btn-reset yqBtn'>转发增加魅力值</button>
+</view>
+<!-- 邀请信息弹窗 -->
+<view class='xrPop' wx:if="{{xrPopState}}">
+  <image class='colseImg3' src='/images/close3.png' catchtap='yqCloseBtn'></image>
+  <image class='userHeadImg' src='{{xrText.gender==1?"/images/b1.png":"/images/g1.png"}}' style='margin-right:0;'></image>
+  <text class='xrPopText1'>{{xrText.nickname}}</text>
+  <text class='xrText'>进入了您的服务区</text>
+  <text class='xrPopText1'>快去聊聊赚牵线红包吧</text>
+  <button class='btn-reset yqBtn' catchtap='toLiao'>和TA聊聊</button>
+</view>
+<!-- 添加故事弹窗 -->
+<view class='messagePop' wx:if="{{addmubanState}}" style='height:600rpx;margin-top:-300rpx;background:#ffffff;'>
+  <view class='closeBox'>
+    <image class='popCloseBtn' src='/images/close3.png' catchtap='closeAll'></image>
+  </view>
+  <!-- <image class='popImg1' src='/images/81.png'></image> -->
+  <view class='aqTop' style='margin-bottom:10rpx;'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>添加故事</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <textarea class='mbListfq' style='background:#f4f4f4;width:640rpx;' value='{{mubanSaveVal}}' auto-focus bindinput="mubanSave" placeholder='请输入您要保存的故事...'></textarea>
+  <button class='btn-reset addBtnPop' catchtap='confirmBtn'>保存</button>
+</view>
+<!-- 爱情宣言弹窗 -->
+<view class='aqxyBox' wx:if="{{aqxyState}}">
+  <view class='aqxy'>
+    <view class='closeBox' catchtap='closeAll'><image class='closeImg' src='/images/546.png'></image></view>
+    <view class='aqTop'>
+      <image class='z1Img' src='/images/l1.png'></image>
+      <text class='aqText1'>为您生成一个对对碰故事</text>
+      <image class='z1Img' src='/images/r1.png'></image>
+    </view>
+    <text class='aqText2'>你可以编辑故事介绍自己\n每晚九点私密相亲高峰</text>
+    <textarea class='aqArea' value='{{sjStory.t_content}}'></textarea>
+    <button class='btn-reset as1Img' catchtap='sendStory'>确定</button>
+  </view>
+</view>

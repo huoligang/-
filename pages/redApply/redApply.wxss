@@ -1,0 +1,144 @@
+.continer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.wydhnImg{
+  width: 100%;
+  height: 272rpx;
+}
+.header{
+  width: 100%;
+  /* padding:0 30rpx; */
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 333;
+}
+.img1{
+  width: 110rpx;
+  height: 110rpx;
+  margin-bottom: 60rpx;
+}
+.desList{
+  width: 100%;
+  height: 210rpx;
+  /* background: #242529; */
+  /* border-radius: 10px; */
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-left:40rpx; 
+}
+.ass1Img{
+  width: 8rpx;
+  height: 36rpx;
+  margin-right: 16rpx;
+}
+.btn1{
+  width: 240rpx;
+  height: 60rpx;
+  color: #333333;
+  font-size: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.text1{
+  line-height: 48rpx;
+  color: #a5a5a7;
+  font-size: 30rpx;
+  margin-top: 10rpx;
+}
+.lineBox{
+  width: 670rpx;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.img2{
+  width: 160rpx;
+  height: 5rpx;
+}
+.text2{
+  color: #333333;
+  font-size: 34rpx;
+  margin: 40rpx 0;
+  line-height: 34rpx;
+}
+.inputList{
+  width: 670rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  background: #f2f2f2;
+  border-radius: 5px;
+  margin-bottom: 30rpx;
+}
+.text3{
+  width: 120rpx;
+  color: #8c8c8c;
+  font-size: 24rpx;
+  margin: 0 26rpx;
+}
+.input1{
+  flex: 1;
+  font-size: 28rpx;
+  color:#333333;
+}
+.btn2{
+  width: 670rpx;
+  height: 94rpx;
+  line-height: 94rpx;
+  border-radius: 30px;
+  background: linear-gradient(to right, #ff6d5c , #ff9775);
+  color: #ffffff;
+  font-size: 34rpx;
+  margin-bottom: 40rpx;
+}
+.jianImg{
+  width: 50rpx;
+  height: 50rpx;
+}
+.topTitle{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.jmBox{
+  width: 100%;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.jmBtn{
+  width: 180rpx;
+  height: 64rpx;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius:30px;
+  border-bottom-left-radius:30px;
+  font-size: 26rpx;
+  color: #333333;
+}
+.ww1Img{
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 4rpx;
+}
+.section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  padding-bottom: 30rpx;
+}

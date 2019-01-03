@@ -1,0 +1,14 @@
+<view class="page-body">
+  <view class="page-section page-section-gap">
+    <map id="qqMap" scale="10" style="width: 100%; height: 300px;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location></map>
+  </view>
+  <view class="btn-area">
+    <button bindtap="moveToLocation" class="page-body-button" type="primary">移动位置</button>
+    
+    选择的位置：
+    <view>位置：{{mobileLocation.address}}</view>
+    <view>经度：{{mobileLocation.longitude}}</view>
+    <view>纬度：{{mobileLocation.latitude}}</view>
+
+  </view>
+</view>

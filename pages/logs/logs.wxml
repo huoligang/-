@@ -1,0 +1,31 @@
+<!--logs.wxml-->
+<!-- 第一个页面 -->
+<view class="container" wx:if="{{pageSort==1 && !is_lock}}" style='position: relative;'>
+  <image class='logsImg1' mode='widthFix' src='/images/lgbg.png'></image>
+  <button class='btn-reset bottom-btn' open-type='getUserInfo' bindgetuserinfo="getUserInfo">
+    <image class='qssImg' src='/images/kqyf.png'></image>
+  </button>
+</view>
+<!-- 封号提示 -->
+<view class='container' wx:if="{{is_lock}}" style='background:#333333;z-index:9999;'>
+  <image class='fengImg' src='/images/038.png'></image>
+  <text class='fengText1' style='text-align:center;'>您发送不良信息\n被举报或聊天时截屏导致封号！</text>
+  <!-- <button class='btn-reset fengBtn' catchtap='unseal'>解除封号398元</button> -->
+  <text class='fengText2'>倒计时：{{sealTime}}</text>
+</view>
+<!-- 遮罩层 -->
+<view class='zhezhao' wx:if="{{zhezhaoState}}"></view>
+<!-- 爱情宣言弹窗 -->
+<view class='aqxyBox' wx:if="{{aqxyState}}">
+  <view class='aqxy'>
+    <view class='closeBox' catchtap='closeAll'><image class='closeImg' src='/images/546.png'></image></view>
+    <view class='aqTop'>
+      <image class='z1Img' src='/images/l1.png'></image>
+      <text class='aqText1'>为您生成一个对对碰故事</text>
+      <image class='z1Img' src='/images/r1.png'></image>
+    </view>
+    <text class='aqText2'>你可以编辑故事介绍自己\n参加每天对对碰PK </text>
+    <textarea class='aqArea' value='{{sjStory.t_content}}'></textarea>
+    <button class='btn-reset as1Img' catchtap='aqxyShow'><image class='img100' src='/images/as1.png'></image></button>
+  </view>
+</view>

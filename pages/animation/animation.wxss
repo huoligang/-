@@ -1,0 +1,31 @@
+.continer{
+  height: 100vh;
+  background: #f87c56;
+  padding-top: 20%;
+}
+.topBox{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.ppkImg{
+  width: 350rpx;
+  height: 74rpx;
+  margin-left: -300px;
+}
+.leftKuai{
+  width: 132rpx;
+  height: 122rpx;
+  display: block;
+  float: right;
+  background: #ffffff;
+}
+.leftKuai:first-child{
+  margin-left: -100px;
+  float: left;
+}
+.leftKuai:last-child{
+  margin-right: -100px;
+}

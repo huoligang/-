@@ -1,0 +1,152 @@
+.continer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #ffffff;
+}
+.header{
+  width: 100%;
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 333;
+}
+.topTitle{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.jianImg{
+  width: 50rpx;
+  height: 50rpx;
+}
+.moneyBox{
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.moneyLeft,.moneyRight{
+  display: flex;
+  height: 110rpx;
+  flex: 0.5;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: #b6b6b6;
+  box-sizing: border-box;
+  border-right: 1px solid #b6b6b6;
+}
+.moneyRight{
+  border-right:none;
+}
+.moneyText1{
+  font-size: 24rpx;
+  line-height: 24rpx;
+}
+.moneyText2{
+  font-size: 60rpx;
+  color:#333333;
+  font-weight: bold;
+}
+.txBtn{
+  width:670rpx;
+  height:96rpx;
+  line-height:96rpx;
+  text-align:center;
+  font-size:32rpx;
+  border-radius:40px;
+  background:linear-gradient(to right, #fe6c5c , #ff9875);
+  color:#ffffff;
+
+}
+.moneyTab{
+  width: 100%;
+  height: 110rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+}
+.moneyTabList{
+  width: 128rpx;
+  height: 104rpx;
+  line-height: 104rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #bbbbbb;
+  margin-right: 64rpx;
+}
+.moneyTabListActive{
+  color: #333333;
+  border-bottom: 4px solid #ff7c65;
+}
+.tabSection{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.tab1List{
+  width: 666rpx;
+  height: 90rpx;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+}
+.tab1Text1{
+  color: #333333;
+  margin-right: 20rpx;
+}
+.tab1Text2{
+  flex: 1;
+  color: #fe735f;
+}
+.tab1Text3{
+  color: #bbbbbb;
+}
+.tab2Text1{
+  color: #fe735f;
+  margin-right: 20rpx;
+}
+.tab2Text4{
+  color: #333333;
+  margin-right: 20rpx;
+}
+.tab2Text2{
+  flex: 1;
+  color: #333333;
+}
+.tab3NoData{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200rpx;
+}
+.tabNText1{
+  font-size: 28rpx;
+  color: #919191;
+}
+.NoBtn{
+  font-size: 26rpx;
+  color: #fe6f5e;
+  text-align: center;
+  width: 220rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border: 1px solid #fe6f5e;
+  border-radius: 40px;
+  margin-top: 30rpx;
+}
+.hnfwImg{
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}

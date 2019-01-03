@@ -1,0 +1,87 @@
+<view class='header' style='height:{{headerHeight}};'>
+  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+    <image class='jianImg' src='/images/jian.png'></image>
+    <text>修改资料</text>
+  </view>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};'>
+  <!-- 性别 -->
+  <!-- <picker bindchange="bindPickerChange" value="{{sexIndex}}" range="{{sexData}}">
+    <view class='inputBox'>
+      <text class='text4'>性别</text>
+      <input type='text' class='input2' disabled='disabled' value='{{sexData[sexIndex]}}'></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker> -->
+  <view class='inputBox'>
+    <text class='text4'>姓名</text>
+    <!-- <open-data type="userNickName" class="input2"></open-data> -->
+    <input type='text' class='input2' bindinput="bindinputName" value='{{username}}' disabled></input>
+  </view>
+  <view class='inputBox' style='height:140rpx;' catchtap='updateImg'>
+    <text class='text4'>图片</text>
+    <input type='number' class='input2' bindinput="bindinputHeight" value='{{head?"已上传":"未上传"}}' disabled></input>
+    <image class='userHeadImg' src='{{head}}' mode='aspectFill'></image>
+  </view>
+  <picker bindchange="bindinputAge" value="{{age}}" range="{{ageData}}">
+    <view class='inputBox'>
+      <text class='text4'>生日</text>
+      <input type='number' class='input2' value='{{ageData[age]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>身高</text>
+    <input type='number' class='input2' bindinput="bindinputHeight" value='{{userHeight}}'></input>
+    <text class='text5'>cm</text>
+  </view>
+  <picker bindchange="bindinputAddress" bindcolumnchange="addressColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class='inputBox'>
+      <text class='text4'>家乡</text>
+      <input type='text' class='input2' value='{{multiArray[multiIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='box2'>
+    <text class='text8'></text>
+    <text class='text6' style='color:#ff9474;'>（以下信息仅红娘可见）</text>
+    <text class='text8'></text>
+  </view>
+  <!-- 姓名 -->
+  <!-- <view class='inputBox'>
+    <text class='text4'>姓名</text>
+    <input type='text' class='input2' bindinput="bindinputName" value='{{zcName}}'></input>
+  </view> -->
+  <!-- 学历 -->
+  <picker bindchange="xlChange" value="{{xlIndex}}" range="{{xl}}">
+    <view class='inputBox'>
+      <text class='text4'>学历</text>
+      <input type='number' class='input2' value='{{xl[xlIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>职业</text>
+    <input type='text' class='input2' bindinput='bindinputIndustry' value='{{industry}}'></input>
+  </view>
+  <picker bindchange="xzChange" value="{{xzIndex}}" range="{{xz}}">
+    <view class='inputBox'>
+      <text class='text4'>月薪</text>
+      <input type='number' class='input2' value='{{xz[xzIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="fcChange" value="{{fcIndex}}" range="{{fc}}">
+    <view class='inputBox'>
+      <text class='text4'>房车</text>
+      <input type='text' class='input2' value='{{fc[fcIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='box2' style='margin-top:30rpx;'>
+    <text class='text6'>授权微信绑定的手机号<text style='font-size:22rpx;'>（仅红娘可见）</text></text>
+    <button class='btn-reset btn2' open-type='getPhoneNumber' bindgetphonenumber="bindgetphonenumber">{{phoneState?"已授权":"授权"}}</button>
+  </view>
+  <button class='btn-reset btn1' catchtap='compile'>保存</button>
+</view>
+<canvas style="width: 180px;height: 267px;background:#ffffff;position: fixed;top: -10000px;" canvas-id="shareFrends"></canvas>

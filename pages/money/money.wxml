@@ -1,0 +1,46 @@
+<view class='header' style='height:{{headerHeight}};'>
+  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+    <image class='jianImg' src='/images/jian.png'></image>
+    <text>余额</text>
+  </view>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};'>
+  <view class='moneyBox'>
+    <view class='moneyLeft'>
+      <text class='moneyText1'>我的余额（元）</text>
+      <text class='moneyText2'>{{userData.balance}}</text>
+    </view>
+    <view class='moneyRight'>
+      <text class='moneyText1'>推广人数（人）</text>
+      <text class='moneyText2'>{{userData.recom}}</text>
+    </view>
+  </view>
+  <button class='btn-reset txBtn'>提现</button>
+  <view class='moneyTab'>
+    <text class='moneyTabList {{tabIndex==1?"moneyTabListActive":""}}' catchtap='tab' data-idx='1'>报名活动</text>
+    <!-- <text class='moneyTabList {{tabIndex==2?"moneyTabListActive":""}}' catchtap='tab' data-idx='2'>推广单身</text> -->
+    <text class='moneyTabList {{tabIndex==3?"moneyTabListActive":""}}' catchtap='tab' data-idx='3'>红娘服务</text>
+  </view>
+  <view class='tabSection'>
+    <block wx:if="{{tabIndex==1}}" wx:for="{{userLogData}}" wx:key="">
+      <view class='tab1List' >
+        <text class='tab1Text1'>已报名</text>
+        <text class='tab1Text2'>{{item.g_name}}</text>
+        <text class='tab1Text3'>花费{{item.o_money}}元</text>
+      </view>
+    </block>
+    <block wx:if="{{tabIndex==3 && orderLogData!=''}}" wx:for="{{orderLogData}}" wx:key="">
+      <view class='tab1List'>
+        <image class="hnfwImg" src='{{item.avatarurl}}'></image>
+        <text class='tab2Text1'>{{item.nickname}}</text>
+        <text class='tab2Text4'>报名</text>
+        <text class='tab2Text2'>{{item.g_name}}</text>
+        <text class='tab1Text3'>收入{{item.o_money}}元</text>
+      </view>
+    </block>
+    <view class='tab3NoData' wx:if="{{tabIndex==3 && orderLogData==''}}">
+      <text class='tabNText1'>红娘服务默认获得70%收入</text>
+      <button class='btn-reset NoBtn'>人人当红娘</button>
+    </view>
+  </view>
+</view>

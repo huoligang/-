@@ -1,0 +1,284 @@
+.header{
+  padding:0 30rpx;
+  background: #ffffff;
+}
+.continer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* padding: 0 30rpx; */
+}
+.recordBox{
+  height: 146rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: #242529;
+}
+.recordTLeft{
+  display: flex;
+  align-items: center;
+}
+.userHeaderImg{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+.redDot{
+  position: relative;
+}
+.redDot::after{
+  content: " ";
+  width: 16rpx;
+  height: 16rpx;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  right: 0rpx;
+  top: 0rpx;
+}
+.userNameText{
+  font-size: 24rpx;
+  color: #8d8d8f;
+}
+.xingxing{
+  width: 20rpx;
+  height: 20rpx;
+  margin: 0 10rpx 0 20rpx;
+}
+.heartImg{
+  width: 40rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+.recordTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx;
+}
+.guanzhu{
+  font-size: 26rpx;
+  color: #a5a6aa;
+}
+.recordTRight{
+  display: flex;
+  align-items: center;
+}
+.recordBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+.recordBottomText{
+  padding: 0 30rpx 0 100rpx;
+  font-size: 30rpx;
+  color: #aaabad;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zhezhao{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 333;
+  background: rgba(33, 33,33, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.payPop{
+  width: 600rpx;
+  height: 420rpx;
+  border-radius: 12px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.peopleImg1{
+  width: 96rpx;
+  height: 88rpx;
+}
+.payHintText{
+  font-size: 28rpx;
+  color: #34302d;
+  line-height: 50rpx;
+  text-align: center;
+  margin: 20rpx 0;
+}
+.payBtn{
+  width: 460rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background: #d26a61;
+  border-radius: 50px;
+  font-size: 30rpx;
+  color: #ffffff;
+}
+.closeBtn{
+  width: 54rpx;
+  height: 54rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+.searchBox{
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 280rpx;
+  position: relative;
+}
+.searchBox .top{
+  width: 680rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36rpx;
+}
+.inputBox{
+  width: 206rpx;
+  height: 66rpx;
+  background: #f1f1f1;
+  color: #8d8d8d;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+.searchInput{
+  display: flex;
+  flex: 1;
+}
+.searchImg1{
+  width: 26rpx;
+  height: 14rpx;
+}
+.searchBtn{
+  width: 210rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  background: #fe8d6e;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 30px;
+  margin-top: 60rpx;
+  position: absolute;
+  bottom: -38rpx;
+}
+.hintBox{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70rpx;
+  margin-bottom: 40rpx;
+}
+.hintBox text{
+  font-size: 22rpx;
+  color: #c1c1c1;
+}
+.xiajImg{
+  width: 16rpx;
+  height: 16rpx;
+  margin-left: 8rpx;
+}
+.userHeadImg{
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.messageList{
+  width: 670rpx;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-bottom: 30rpx;
+}
+.messageUser{
+  width: 100%;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+.HeaderImgNameText{
+  width: 100%;
+  height: 170rpx;
+  display: flex;
+  align-items: center;
+}
+.nameBox{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+.userAgeText{
+  font-size: 24rpx;
+}
+.xingImg{
+  width: 24rpx;
+  height: 24rpx;
+  margin: 0 10rpx;
+}
+.userNameText{
+  width: 300rpx;
+  font-size: 30rpx;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.liaota{
+  width: 120rpx;
+  height: 56rpx;
+  background: #ff7360;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 56rpx;
+  font-size: 26rpx;
+  color: #ffffff;
+  /* line-height: 52rpx; */
+  /* border-radius: 20px; */
+  /* font-size: 24rpx; */
+  /* color: #a4a5a7; */
+  /* background: #242529; */
+
+  /* color: #a4a5a7; */
+  /* background: #242529; */
+}
+.box_text{
+  min-height: 46rpx;
+  text-align: left;
+  font-size: 26rpx;
+  display: inline;
+  align-items: center;
+  /* justify-content: start; */
+  padding: 10rpx 30rpx;
+  line-height: 30rpx;
+  color: #828282;
+  /* margin-top: 14rpx; */
+}

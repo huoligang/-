@@ -1,0 +1,74 @@
+<view class='header' style='height:{{headerHeight}};'>
+  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+    <image class='jianImg' src='/images/jian.png'></image>
+    <text>用户须知</text>
+  </view>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};'>
+  <!-- 第一部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='1'>
+      <text class='tab2Text2'>1.附近的缘分核心一：线上线下双相亲</text>
+      <image class='xxxImg {{showIndex==1?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==1}}">　　提供婚恋服务目前有两种形式：第一种是线上交友网站，第二种是线下婚姻介绍所。交友网站有很多异性信息，搜索符合择偶条件的异性也不难，但是与这些异性进行约会就没那么容易了，大多数都收取信息服务费。另外交友网站一般不提供人工服务，更加重要的是安全顾虑，心智成熟的单身者通常不愿意与陌生异性进行单独见面。婚介所入会的人数通常并不多，缺乏足够的选择对象，导致婚托现象大量出现。现在的年轻人吃饭都是点外卖，何况拉下脸皮去婚介所找对象，往往都是年龄偏大或者父母代为找对象的，大多数人都是内心不愿意父母带自己去相亲，也不愿意去接受婚介所老师提供的相亲服务。\n　　总之对于单身的人来说，找到符合择偶要求的异性信息、经由他人介绍见面最后完成约会到最后相处牵手走向婚姻应是一个完整的过程，所提供的服务也应该是连续的和完整的。但实际上交友网站、婚姻介绍所在服务环节方面都是残缺的，单身者得不到完整的服务。附近的缘分通过线上私密交友+线下附近的红娘两种业态的优势，像点外卖一样为单身者提供完整服务。
+      </text>
+  </view>
+  <!-- 第二部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='2'>
+      <text class='tab2Text2'>2.附近的缘分核心二：私密保护性</text>
+      <image class='xxxImg {{showIndex==2?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==2}}">　　没有人愿意承认自己是剩男剩女，所以不论是朋友介绍，还是父母介绍，更何况是婚介所的人，年轻人内心都是抗拒的。附近的缘分以社交小程序为依托主打相亲私密保护。\n　　第一，不过分暴漏用户的照片：除了眼缘PK能看到一次照片信息,另外就是自己主动要求上推荐位置，大多数情况保护了用户的相亲隐私是不看用户照片的。\n　　第二，聊天小黑屋：所有聊天文字会在几分钟内自动消失，图片照片也是，同时不能截图，保护相亲人的隐私。\n　　第三，小程序：简单便捷，用完即走，在微信中收起来，不用下载一个APP放在桌面上担心相亲被人看到。</text>
+  </view>
+  <!-- 第三部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='3'>
+      <text class='tab2Text2'>3.附近的缘分核心三：附近的红娘牵线</text>
+      <image class='xxxImg {{showIndex==3?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==3}}">　　中国幅员辽阔，工作户籍所在地往往和家乡分离。每次回到家乡，七姑八姨总是催婚，回到城市却没有人为我们介绍对象。附近的缘分设置了附近的红娘，相当于你城里有了七姑八姨，没事就帮你介绍对象。一个区域我们只设置一个附近的红娘，直辖市省会城市细分到区，其他细分到区县级市，这个红娘相当于单身团的团长，用户通过附近的红娘沟通附近的单身，红娘会不停了解附近的单身的资料，提高了匹配的成功率和安全性，建议尽量在红娘的安排下完成第一次约会。</text>
+  </view>
+  <!-- 第四部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='4'>
+      <text class='tab2Text2'>4.附近的缘分核心四——效率高而收费低</text>
+      <image class='xxxImg {{showIndex==4?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==4}}">第一  沟通全免费\n　　大多数交友网站世纪佳缘百合网会员之间收费信息收费，查看会员资料也需要vip等功能，附近的缘分交流完全免费没有设置沟通障碍，而是让会员进行充分展示互动沟通。\n第二  牵线才收费\n　　红娘会从资源库中为您挑选合适的对象才会找你收费，既可以按单次收费也可以按服务到结婚为止收费。我们的红娘很多都是宝妈，需要赚钱养家，需要大量长时间的积累有效合适的人选推荐给您。</text>
+  </view>
+  <!-- 第五部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='5'>
+      <text class='tab2Text2'>5.附近的红娘都是一些什么样的人</text>
+      <image class='xxxImg {{showIndex==5?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==5}}">红娘的来源大致是如下两种，基本都是全职为您服务：\n　　第一种是：全职个体红娘，她们就是你的一个邻居，30岁左右的宝妈。基本都是同年龄的人，不是像年纪大的长辈难以沟通，能很快明白年轻人的心事，还能营造轻松温馨的社交圈子。\n　　第二种：婚恋公司的红娘，有一部分是有很好的服务能力但是缺乏用户的婚介公司，我们会尽量把控品质过硬的婚介公司，他们有更加丰富的经验和服务能力。\n　　世界大了什么样的情况都会出现，红娘有欺诈违背道德行为，保留截图聊天记录等证据，可以向平台微信客服投诉。</text>
+  </view>
+  <!-- 第六部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='6'>
+      <text class='tab2Text2'>6.怎样才能更快地找到婚恋对象？</text>
+      <image class='xxxImg {{showIndex==6?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==6}}">为了提高服务效率，节省人力成本，如果你想用最短的时间找到自己的另一半，请一定做到以下几点：\n　　第一，认真完善个人资料，尊重别人也尊重自己。一定要花点时间上传一张好照片。情感故事也很重要，别人就凭你所写的内容判断你。内容残缺不全，别人会认为你做人做事不靠谱，和你沟通的人不会多。\n　　第二，每天最少登录一次附近的缘分，刷一刷别人的故事，多加关注多聊天。\n　　第三，看到合适的人求红娘牵线，红娘不会进行特别主动跟踪服务，如果你看到了就在小程序中对红娘提出邀请，红娘会为你穿针引线。\n　　第四， 和红娘沟通申请上推荐位置。会叫的孩子有奶吃，上推荐位后附近的单身都会看到你，会主动和你聊天，获得更快找到缘分的机会。</text>
+  </view>
+  <!-- 第七部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='7'>
+      <text class='tab2Text2'>7.用户守则</text>
+      <image class='xxxImg {{showIndex==7?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==7}}">1. 本人必须处于单身状态；\n2. 提供的个人资料必须真实而全面；\n3. 禁止与他人发生同居关系一夜情和经济往来；\n4. 必须认真核验交往对象的真实情况；\n5. 必须随时防范身心和财产受到侵害；\n6. 禁止在会员中从事产品推销、宗教宣传和政治活动；\n7. 禁止与其他会员争吵和打架；\n8.对交往过程和结果自负其责</text>
+  </view>
+  <!-- 第八部分 -->
+  <view class='list'>
+    <view class='tab1List' catchtap='showThis' data-idx='8'>
+      <text class='tab2Text2'>8.安全性提醒</text>
+      <image class='xxxImg {{showIndex==8?"z180":""}}' src='/images/xxx.png'></image>
+    </view>
+    <text class='xzText' wx:if="{{showIndex==8}}">婚恋领域是纠纷和犯罪的高发区，异性之间产生矛盾和彼此伤害都是难以避免的。 作为平台我们在此郑重提醒广大用户，你可能遇到以下情况：\n1.发现交往对象并不是单身。这些非单身者有的是对现有的婚恋关系不满意，进入的目的是耐不住寂寞的人就想通过平台寻找临时情人。\n2.发现交往对象提供的个人信息不真实或不全面。有的人为了骗取他人的信任，对自己的经历和现实情况胡编乱造；有的人为了获得别人的好感，只把好的方面展示出来，却把坏的方面进行掩盖。最常见的情况是婚姻状况是离异或有孩子，但资料上写的却是未婚和无孩子。\n3.与人交往过程中财物方面受到了损失。交友时出现的消费开支、馈赠礼品、钱物借还等情况是常见的，如果双方在情感方面出现波折，受损失的一方就会感觉受到了欺骗。\n4.双方在领证结婚前发生了同居关系。如果男方选择中止交往，女方就会认为受到了伤害。\n5.对交往对象不满意，却摆脱不了对方的苦苦纠缠，甚至遭到暴力威胁和身体伤害，对生活和工作产生了极坏的影响。\n6.在不知情的情况下，与吸毒者、赌博者、犯罪者、传染病和精神病患者以及其他性格缺陷或行为不端的人发生了情感关系，在精神方面、经济方面、身体方面可能受到很大伤害。</text>
+  </view>
+  <text class='xzText' style='padding-top:20rpx;'>以上情况，平台并不能承担责任，请理解！ 最后希望您早日找到合适自己的人！</text>
+</view>

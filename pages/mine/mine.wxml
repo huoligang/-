@@ -1,0 +1,133 @@
+<view class='header' style='height:{{headerHeight}};background:#ffffff;'>
+    <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;margin-left:30rpx;'>我的</text>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};'>
+  <view class='userHeadBox'>
+    <image class='headerImg' src='{{userData.avatarurl}}'></image>
+    <view class='userNameBox'>
+    <!-- <text class='signText'>红娘</text> -->
+      <view class='userName'>
+        <text>{{user_name}}</text>
+        <text class='signText' wx:if="{{honglog==1}}">红娘</text>
+      </view>
+      <!-- <text class='userName'>{{user_name}}</text> -->
+      <view class='mlzText'>
+        <!-- <image class='xingImg' src='/images/xing.png'></image> -->
+        <text>ID：{{userData.user_id}}</text>
+      </view>
+    </view>
+    <button class='btn-reset btn1' catchtap='redApply' wx:if="{{honglog!=1}}">我要当红娘<image class='yjtImg' src='/images/yjt.png'></image></button>
+  </view>
+  <!-- 列表 -->
+  <view class='mineList' catchtap='addBtn'>
+    <image class='mlImg' src='/images/ml1.png'></image>
+    <text class='mlTitle'>我的故事</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <view class='mineList' catchtap='toUserMessages'>
+    <image class='mlImg' src='/images/ml2.png'></image>
+    <text class='mlTitle'>个人资料</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <view class='mineList' catchtap='toMoney'>
+    <image class='mlImg' src='/images/ml3.png'></image>
+    <text class='mlTitle'>我的余额</text>
+    <text class='moneyText' style='margin-right:10rpx;'>{{balance}}元</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <view class='mineList' catchtap='reposition'>
+    <image class='mlImg' src='/images/ml4.png'></image>
+    <text class='mlTitle'>相亲位置</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <view class='mineList' catchtap='specification'>
+    <image class='mlImg' src='/images/ml5.png'></image>
+    <text class='mlTitle'>用户须知</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <image class='jiyiImg' mode='widthFix' src='{{saveImg}}'></image>
+  <view class='bottomBox'>
+    <button class='btn-reset bottomBtn1' catchtap='saveImg'>保存到相册</button>
+    <button class='btn-reset bottomBtn1' open-type='share'>推荐单身的人</button>
+  </view>
+    <!-- <view class='jmBox'> -->
+      <button class='btn-reset jmBtn' open-type='contact'>
+        <image class='ww1Img' src='/images/ww1.png'></image>
+        <text>客服咨询</text>
+      </button>
+    <!-- </view> -->
+</view>
+
+
+<!-- <view class='myHintBox jiantou' style='top:{{headerHeight}}'> -->
+
+<!-- </view> -->
+<!-- 重新定位弹窗 -->
+<image class='zhezhao' wx:if="{{zhezhaoState}}" catchtap='closeAll'></image>
+<view class='repositionPop' wx:if="{{repositionState}}">
+  <text class='repositionText1'>每人只能定位一个位置</text>
+  <text class='repositionText2'>定位后将为你推荐附近的红娘和缘分</text>
+  <button class='btn-reset repositionBtn' catchtap='repositionBtn'>开始定位</button>
+</view>
+
+<!-- 我的故事弹窗 -->
+<view class='messagePop' wx:if="{{bottomState}}" style='background:#ffffff;'>
+  <view class='closeBox' catchtap='closeAll'>
+    <image class='closeImg' src='/images/close8.png'></image>
+  </view>
+  <view class='aqTop2'>
+    <image class='aqHeadImg' src='{{userData.avatarurl}}'></image>
+    <!-- <image class='z1Img' src='/images/l1.png'></image> -->
+    <text class='aqText12'>我的故事</text>
+    <!-- <image class='z1Img' src='/images/r1.png'></image> -->
+  </view>
+  <scroll-view scroll-y="{{infocus}}" class='popScrollView' scroll-into-view="{{intoViewVal}}" scroll-with-animation="true">
+    <block wx:for="{{TempletList}}" wx:key="">
+      <view class='mbListBox {{now_t_id==item.t_id?"gsActive":""}}' catchtap='addMuban' data-type='1' data-itemData='{{item}}'>
+        <image class='rtpkImg' wx:if="{{now_t_id==item.t_id}}" src='/images/rtpk.png'></image>
+        <view class='zanBox'>
+          <image class='dz3Img' src='/images/dz3.png'></image>
+          <text class='dzText'>{{item.thumbup}}</text>
+        </view>
+        <view wx:if="{{bjIndex!=index}}" class='mbList'>{{item.t_content}}</view>
+        <textarea wx:if="{{bjIndex==index}}" class='mbList2' adjust-position="{{false}}" value='{{item.t_content}}' bindblur="bindblur" data-t_id="{{item.t_id}}" catchtap='listClick' data-listvalue='{{item.t_content}}' data-idx='{{index}}' data-list_idx='{{list_idx}}' bindfocus="bindfocus">
+        </textarea>
+      </view>
+    </block>
+  </scroll-view>
+  <image class='add1Img' src='/images/add1.png' catchtap='addMuban' data-type='2'></image>
+</view>
+<!-- 故事编辑弹窗 -->
+<view class='messagePop' wx:if="{{bjStoryState}}">
+  <view class='closeBox' catchtap='bjCloseBtn'>
+    <image class='closeImg' src='/images/close8.png'></image>
+  </view>
+  <!-- <image class='popImg1' src='/images/81.png'></image> -->
+  <view class='aqTop'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>编辑故事</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <textarea class='mbList2' adjust-position="{{false}}" value='{{bjStoryData.t_content}}' bindblur="bindblur" ></textarea>
+  <view class='storyCompile2'>
+    <view class='storyBLeft'>
+      <button class='btn-reset bjBtn1' catchtap='deleteStory'>删除</button>
+      <button class='btn-reset bjBtn1 {{bjStoryData.t_id==now_t_id?"spk2":"spk"}}' catchtap='radioClick' data-item='{{bjStoryData}}'>{{bjStoryData.t_id==now_t_id?"PK中":"上PK台"}}</button>
+    </view>
+  </view>
+</view>
+<!-- 添加故事弹窗 -->
+<view class='messagePop' wx:if="{{addmubanState}}" style='height:600rpx;margin-top:-300rpx;background:#ffffff;'>
+  <view class='closeBox' catchtap='closeAll'>
+    <image class='closeImg' src='/images/close8.png'></image>
+  </view>
+  <!-- <image class='popImg1' src='/images/81.png'></image> -->
+  <view class='aqTop' style='margin-bottom:10rpx;'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>添加故事</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <textarea class='mbListfq' style='background:#f4f4f4;width:640rpx;' value='{{mubanSaveVal}}' auto-focus bindinput="mubanSave" placeholder='请输入您要保存的故事...'></textarea>
+  <button class='btn-reset addBtnPop' catchtap='confirmBtn'>保存</button>
+</view>
+<image class='zhezhao' wx:if="{{zhezhao}}" catchtap='closeAll'></image>

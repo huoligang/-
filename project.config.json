@@ -1,0 +1,174 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.1",
+	"appid": "wx97f73995869c3d98",
+	"projectname": "%E9%99%84%E8%BF%91%E7%9A%84%E7%BC%98%E5%88%862",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 11,
+			"list": [
+				{
+					"id": -1,
+					"name": "vip页面",
+					"pathName": "pages/vip/vip",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "聊天页面",
+					"pathName": "pages/chat/chat",
+					"query": "data={\"user_id\":273,\"gender\":1,\"name\":\"我要疯了\",\"inType\":\"1\"}",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": 2,
+					"name": "登陆注册",
+					"pathName": "pages/logs/logs",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": 3,
+					"name": "群进入",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": 4,
+					"name": "公屏",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "MUF3lSBwO3vTh0UjrTJFAENajF48rZAShzx1JopY9mU@cr4dev",
+						"shareKey": "HrIT7NAB7GN5hs3CL29ZiLeS7cIgsd1yzYdNLExqeCJeLuasVnGVPIKwTvEUepTwJDynaxnu89ubmf-xwIs9Qw~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "关注",
+					"pathName": "pages/record/record",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "MUF3lSBwO3vTh0UjrTJFAENajF48rZAShzx1JopY9mU@cr4dev",
+						"shareKey": "FYx-pJ_-xeZEXgNIoFoKmDcTj--vWJ9suVFvLBqgQrYajMZGhjAyP43beP17-KSEe9jAg5YYyRvyjTCBDx1tXw~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/mine/mine",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "MUF3lSBwO3vTh0UjrTJFAENajF48rZAShzx1JopY9mU@cr4dev",
+						"shareKey": "FYx-pJ_-xeZEXgNIoFoKmDcTj--vWJ9suVFvLBqgQrYajMZGhjAyP43beP17-KSEe9jAg5YYyRvyjTCBDx1tXw~~"
+					}
+				},
+				{
+					"id": 7,
+					"name": "好友进入",
+					"pathName": "pages/index/index",
+					"query": "friend_u_id=90",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "申请红娘",
+					"pathName": "pages/redApply/redApply",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "地图",
+					"pathName": "pages/map/map",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "动画",
+					"pathName": "pages/animation/animation",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "红娘页面",
+					"pathName": "pages/red/red",
+					"query": "",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "W8BdEBmovneEeNAu29IDAOjAJzPXVQFKQFPxClSUbGw@cr4dev",
+						"shareKey": "0meX2mrXzcTjL9pCpZd5tXx4eNGoEwfV5sfkr_bWXNGA4JdjwClbpaYOJGmKaNGMSQNbu0EOFZMTLKgBCUPY0w~~"
+					}
+				}
+			]
+		}
+	}
+}

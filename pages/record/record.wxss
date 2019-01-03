@@ -1,0 +1,180 @@
+.continer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  /* padding: 0 30rpx; */
+}
+.header{
+  width:100%;
+  padding:0 30rpx;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:333;
+}
+.recordBox{
+  height: 146rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background: #ffffff;
+}
+.recordTLeft{
+  display: flex;
+  align-items: center;
+}
+.userHeaderImg{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+.redDot{
+  position: relative;
+  z-index: 555;
+}
+.redDot::after{
+  content: " ";
+  width: 16rpx;
+  height: 16rpx;
+  background: #fca377;
+  border-radius: 50%;
+  position: absolute;
+  right: 16rpx;
+  bottom: 16rpx;
+}
+.userNameText{
+  font-size: 24rpx;
+  color: #8d8d8f;
+}
+.xingxing{
+  width: 20rpx;
+  height: 20rpx;
+  margin: 0 10rpx 0 20rpx;
+}
+.heartImg{
+  width: 36rpx;
+  height: 30rpx;
+}
+.recordTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx;
+}
+.guanzhu{
+  font-size: 26rpx;
+  color: #a5a6aa;
+}
+.recordTRight{
+  display: flex;
+  align-items: center;
+}
+.recordBox{
+  width: 690rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+.recordBottomText{
+  padding: 0 30rpx 0 100rpx;
+  font-size: 30rpx;
+  color: #aaabad;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* .zhezhao{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 333;
+  background: rgba(205, 205,205, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+.payPop{
+  width: 600rpx;
+  height: 420rpx;
+  border-radius: 12px;
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.peopleImg1{
+  width: 96rpx;
+  height: 88rpx;
+}
+.payHintText{
+  font-size: 28rpx;
+  color: #34302d;
+  line-height: 50rpx;
+  text-align: center;
+  margin: 20rpx 0;
+}
+.payBtn{
+  width: 460rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background: #d26a61;
+  border-radius: 50px;
+  font-size: 30rpx;
+  color: #ffffff;
+}
+.closeBtn{
+  width: 54rpx;
+  height: 54rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+.nomsgBox{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 350rpx;
+}
+.nomsgText1{
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 88rpx;
+}
+.nomsgText2{
+  font-size: 28rpx;
+  color: #919191;
+
+}
+.myhintImg{
+  width: 100%;
+  height: 64rpx;
+  position: relative;
+  right: 0;
+}
+.hintimg2Img{
+  width: 100%;
+  height: 64rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+.qxImg{
+  width: 32rpx;
+  height: 32rpx;
+  position: absolute;
+  z-index: 2;
+  right: 80rpx;
+  top: 22rpx;
+}

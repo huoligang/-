@@ -1,0 +1,8 @@
+<view class='content'>
+  <view class='header'>
+    <text>静聊VIP</text>
+    <text>月卡：19元/月</text>
+    <text>可查看同城消息，快捷聊天</text>
+  </view>
+</view>
+<view class='bottom' catchtap='apply'>立即开通</view>

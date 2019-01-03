@@ -1,0 +1,73 @@
+<view class='continer'>
+  <view class='header' style='height:{{headerHeight}};'>
+    <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;margin-left:0;'>附近单身的人</text>
+  </view>
+  <view class='searchBox'>
+    <view class='top'>
+      <picker bindchange="xinrenChange" value="{{xinrenIndex}}" range="{{xinren}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{xinren[xinrenIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+      <picker bindchange="sexChange"  value="{{sexIndex}}" range="{{sex}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{sex[sexIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+      <picker bindchange="ageChange"  value="{{ageIndex}}" range="{{age}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{age[ageIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+    </view>
+    <view class='top'>
+      <picker bindchange="xlChange" value="{{xlIndex}}" range="{{xl}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{xl[xlIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+      <picker bindchange="xzChange"  value="{{xzIndex}}" range="{{xz}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{xz[xzIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+      <picker bindchange="fcChange"  value="{{fcIndex}}" range="{{fc}}">
+        <view class='inputBox'>
+          <input type='text' class='searchInput' value='{{fc[fcIndex]}}' disabled></input>
+          <image class='searchImg1' src='/images/test2.png'></image>
+        </view>
+      </picker>
+    </view>
+    <button class='btn-reset searchBtn' catchtap='getRecord'>搜索</button>
+  </view>
+  <view class='hintBox'>
+    <text>为您搜索到以下合适人选</text>
+    <image class='xiajImg' src='/images/xiaj.png'></image>
+  </view>
+  <block wx:for="{{recordData}}" wx:key="">
+          <view class='messageList' catchtap='chat' data-msglist='{{item}}' data-user_id="{{item.user_id}}" data-m_id='{{item.m_id}}'>
+            <view class='messageUser'> 
+              <view class='HeaderImgNameText' catchtap='seeDetail' data-seeid='{{item.user_id}}'>
+                <image class='userHeadImg' src='{{item.gender==1?"/images/b1.png":"/images/g1.png"}}'></image>
+                <view class='nameBox'>
+                  <view class='userNameText'>
+                    <text>{{item.name}}</text>
+                    <image class='xingImg' src='/images/xing.png'></image>
+                    <text>{{item.glamour}}</text>
+                  </view>
+                  <text class='userAgeText'>{{item.age}}岁/身高{{item.height}}cm/{{item.address}}</text>
+                </view>
+              </view>
+              <form bindsubmit="saveFormId" report-submit='true'>
+              <button form-type='submit' wx:if="{{item.user_id!=user_id}}" class='btn-reset liaota' catchtap='chat' data-msglist='{{item}}' data-user_id="{{item.user_id}}" data-m_id='{{item.m_id}}'>聊天</button>
+              </form>
+            </view>
+            <view class='box_text'>{{item.m_content}}</view>
+          </view>
+        </block>
+</view>

@@ -1,0 +1,7 @@
+<view class='continer'>
+  <view class='topBox'>
+    <view class='leftKuai' animation="{{animationData2}}"></view>
+    <image class='ppkImg' src='/images/ppk.png' animation="{{animationData}}"></image>
+    <view class='leftKuai' animation="{{animationData3}}"></view>
+  </view>
+</view>

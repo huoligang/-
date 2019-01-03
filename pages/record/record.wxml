@@ -1,0 +1,42 @@
+<view class='header' style='height:{{headerHeight}};'>
+  <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;margin-left:0;'>小黑屋</text>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}}'>
+  <!-- 提示文本 -->
+<view class='myhintImg' wx:if="{{hintState && recordData[0]!=undefined}}">
+  <image class='hintimg2Img'  src='{{isIos?"/images/hintImg.png":"/images/hintImg2.png"}}'></image>
+  <image class='qxImg' src='/images/qx.png' catchtap='qxBtn'></image>
+</view>
+  <!-- 没有数据提示 -->
+  <view class='nomsgBox' wx:if="{{recordData[0]==undefined}}">
+    <text class='nomsgText1'>你还没有私聊的相亲对象</text>
+    <!-- <text class='nomsgText2'>非关注的人十二小时自动清空</text> -->
+  </view>
+  <block wx:for="{{recordData}}" wx:key="" >
+  <view class='recordBox {{!item.is_read && user_id!=item.from_user_id?"redDot":""}}' wx:if="{{item!=undefined}}" catchtap='toChat' data-itemdata='{{item}}' >
+    <view class='recordTop'>
+      <view class='recordTLeft' catchtap='toChat' data-itemdata='{{item}}'>
+        <image class='userHeaderImg ' src='{{item.avatarurl}}'></image>
+        <image class='sexImg' src='{{item.gender==1?"/images/sex1.png":"/images/sex2.png"}}'></image>
+        <text class='userNameText'>{{item.nickname}}</text>
+        <image class='xingxing' src='/images/3.png'></image>
+        <text class='userNameText'>{{item.glamour}}</text>
+      </view>
+      <view class='recordTRight' catchtap='{{item.is_follow?"unFollow":"follow"}}' data-uid='{{item.user_id}}'>
+        <image class='heartImg' src='{{item.is_follow?"/images/11.png":"/images/10.png"}}'></image>
+        <!-- <text class='guanzhu'>{{item.is_follow?'关注':'关注'}}</text> -->
+      </view>
+    </view>
+    <text class='recordBottomText' wx:if="{{item.type==1}}">{{item.last_message?item.last_message:item.content}}</text>
+    <text class='recordBottomText' wx:if="{{item.type==2}}">图片</text>
+  </view>
+  </block>
+</view>
+<view class='zhezhao' wx:if="{{tequanState}}">
+  <view class='payPop'>
+    <image class='closeBtn' src='/images/042.png' catchtap='closePop'></image>
+    <image class='peopleImg1' src='/images/041.png'></image>
+    <text class='payHintText'>为防止骚扰未关注的人12小时自动清空\n普通用户只能关注一人\n特权用户可以关注多人</text>
+    <button class='btn-reset payBtn' catchtap='payVip'>开通搭讪关注特权（9元/月）</button>
+  </view>
+</view>

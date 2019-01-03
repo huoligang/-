@@ -1,0 +1,272 @@
+
+<canvas style="width: 180px;height: 267px;background:#ffffff;position: fixed;top: -10000px;" canvas-id="shareFrends"></canvas>
+<view class='content' style='padding-top:{{headerHeight}};'>
+  <view class='header' style='height:{{headerHeight}};'>
+      <view class='headerInterior' style='height:{{allHeight}}'>
+        <image class='jianImg' src='/images/jian.png' catchtap='backIndex'></image>
+        <image class='header_img' mode='aspectFill' src='{{oppositeData.avatarurl}}'></image>
+        <text class='header_name'>{{userData.name}}</text>
+      </view>
+  </view>
+  <view class='wlBox' wx:if="{{isLoad}}">
+    <button class='btn-reset weizhi' catchtap='aqxy'>TA的故事</button>
+    <button class='btn-reset weizhi' catchtap='location' wx:if="{{!location}}">查位置</button>
+    <button class='btn-reset weizhiText' wx:if="{{location}}"><text>{{chatUserCity}}</text><text>{{chatUserDistance/1000}}km</text></button>
+    <button class='btn-reset lahei' catchtap='{{is_black?"quBlack":"pullBlack"}}'>{{is_black?'取消':'拉黑'}}</button>
+  </view>
+  <scroll-view class='section' catchtap='close' scroll-y scroll-into-view="{{chatIntoView}}">
+    <view class='plpHint' wx:if="{{inType}}">附近的缘分会自动把情感宣言变成漂流瓶给同城的人，收到就聊聊看看缘分吧，为防止骚扰不回信十二小时连人带瓶自动清除.</view>
+      <view class='plpHint2' wx:if="{{day_once}}">小黑屋聊天记录三分钟自动消失，截图截屏直接封号</view>
+    <block wx:for="{{msg}}" wx:key="">
+      <view class='userMsgBox' wx:if="{{myself_id!=item.from_user_id}}">
+        <image class='userAvaImg' src='{{oppositeData.avatarurl}}'></image>
+        <text class='userNickText'>{{oppositeData.nickname}}</text>
+      </view>
+      <view class='userMsgBox' wx:if="{{myself_id==item.from_user_id}}" style='justify-content: flex-end;'>
+        <text class='userNickText'>{{userMyself.nickname}}</text>
+        <image class='userAvaImg' src='{{userMyself.avatarurl}}' style='margin: 0 30rpx 0 10rpx;'></image>
+      </view>
+      <!-- 文字类型消息 -->
+      <view class='chatTextBox {{myself_id==item.from_user_id?"right":"left"}}' wx:if="{{item.file_type==1||item.type==1 || item.type==4}}">
+        <view  class='text1 {{myself_id==item.from_user_id?"right-radius":"left-radius"}}'>
+          <text>{{item.content?item.content:item.m_content}}</text>
+          <text wx:if="{{myself_id!=item.from_user_id}}" class='report' bindtap='reportBtn' data-to_user_id="{{item.from_user_id}}" data-content='{{item.content}}'>举报</text>
+        </view>
+      </view>
+      <!-- 图片类型消息 -->
+      <view class='chatImg {{myself_id==item.from_user_id?"right":"left"}}' wx:if="{{item.file_type==2|| item.type==2}}">
+        <view class='chatImgBox {{myself_id==item.from_user_id?"right-radius":"left-radius"}}'>
+          <image class='img1' mode='widthFix' src='{{item.file?item.file:item.content}}' catchtap='seeFunImg' data-imgurl="{{item.file}}"></image>
+        </view>
+      </view>
+      <!-- 礼物类型消息 -->
+      <view class='chatGift {{myself_id==item.user_id?"right":"left"}}' wx:if="{{item.type=='gift'}}">
+        <view class='chatGiftBox {{myself_id==item.user_id?"right-radius":"left-radius"}}'>
+          <image class='giftImg2' mode='aspectFit' src='{{item.g_image}}'></image>
+          <view class='giftTextBox'>
+            <text class='giftTitle'>{{item.g_name}}</text>
+            <text class='giftDesc'>{{item.content}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 语音类型消息 -->
+      <view class='chatImg chatRecord {{myself_id==item.from_user_id?"right":"left"}}' wx:if="{{item.file_type==3}}">
+        <view class='chatRecord2 {{myself_id==item.from_user_id?"right-radius":"left-radius"}}' catchtap='play' data-recordurl='{{item.file}}'>语音消息</view>
+      </view>
+      <!-- 漂流瓶提示语 -->
+    </block>
+    
+      <view class='chatTextBox' id="chat66" style='opacity:0;'>
+        <text class='text1'></text>
+      </view>
+      <view class='hintBox' wx:if="{{errorState}}">
+        <view class='hintLine'></view>
+        <text class='hintText'>{{hintText}}</text>
+        <view class='hintLine'></view>
+      </view>
+  </scroll-view>
+  <!-- 礼物 -->
+  <view class='giftBox' wx:if="{{giftState==2}}">
+    <view class='giftContiner'>
+      <block wx:for="{{giftList}}" wx:key="">
+        <view class='giftList {{giftClickIndex==index-0+1?"giftListClick":""}}' catchtap='toGift' data-idx='{{index-0+1}}' data-g_id='{{item.g_id}}'>
+          <image class='giftImg' src='{{item.g_image}}'></image>
+          <text class='giftNameText'>{{item.g_name}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 红包图片 -->
+  <view class='xhmlz' wx:if="{{bottomHintText}}">查看位置消耗魅力值1</view>
+  <image class='redPacketImg' src='/images/red2.png' wx:if="{{giftState!=1}}" catchtap='tabGift'></image>
+  <!--  -->
+  <view class='bottom' wx:if="{{giftState==1}}" style='bottom:{{isHasKeyboard?keyboardHeight:"0"}};'>
+    <view class='bottom-top'>
+      <image class='bottom_imgL' src='/images/img2.png' catchtap='record'></image>
+      <input class='bottom_input' bindfocus="bindfocus" bindblur="bindblur" adjust-position="{{false}}" wx:if="{{!recordState}}" bindconfirm="bindconfirm" cursor-spacing="10" value='{{chatValue}}' confirm-type="发送"></input>
+      <button class='btn-reset bottom_input record_css' wx:if="{{recordState}}" catchtouchstart='start' catchtouchend='end'>{{start_end?'松开停止':'按住说话'}}</button>
+      <!-- <view class='bottom_right_box'> -->
+      <!-- <image class='bottom_imgR img3' src='/images/line.png' wx:if="{{photoState}}" catchtap='template'></image> -->
+      <image class='bottom_imgR img3' src='/images/img3.png' catchtap='chooseImg'></image>
+      <!-- <image class='bottom_imgR' src='/images/add.png' catchtap='addBtn'></image> -->
+      <!-- </view> -->
+    </view>
+    <view class='bottom-center' wx:if="{{bottomState}}">
+      <scroll-view scroll-y class='bottom_scroll'>
+        <block wx:for="{{TempletList}}" wx:key="">
+          <view class='bottom-center-list'>
+            <input class='temInput {{index==list_idx?"inputbg":""}}' value='{{item.t_content}}' disabled="{{index!=list_idx}}" bindblur="bindblur" catchtap='listClick' data-listvalue='{{item.t_content}}' data-idx='{{index}}' data-list_idx='{{list_idx}}'></input>
+            <image class='list-btn' src='/images/compile.png' catchtap='compile' data-t_id="{{item.t_id}}" data-t_content="{{item.t_content}}" data-idx="{{index}}"></image>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class='{{bottomTextArea?"bottom-bottom":"bottom-bottom2"}}' wx:if="{{bottomState}}">
+      <image class='bottom-btn' src='/images/add.png' catchtap='textareaCk' wx:if="{{bottomTextArea}}"></image>
+      <textarea class='bottom_textarea' wx:if="{{!bottomTextArea}}" placeholder='请在此输入套路...' bindinput="bindinput" bindblur="textareaBlur" cursor-spacing="10"></textarea>
+      <button class='btn-reset textareaBtn' wx:if="{{!bottomTextArea}}" catchtap='confirmBtn'>确定</button>
+    </view>
+  </view>
+</view>
+<!-- 收费弹窗 -->
+<view class='zhezhao' wx:if="{{vipState}}">
+  <view class='payPop'>
+    <image class='closeBtn' src='/images/042.png' catchtap='closePop'></image>
+    <!-- <image class='peopleImg1' src='/images/pt.png'></image> -->
+    <text class='payHintText2'>魅力值不足无法发送图片</text>
+    <text class='payHintText'>发照片需要消耗魅力值 送红包或转发好友增加魅力值</text>
+    <view class='popBottomBtnBox' style='margin-top:30rpx;'>
+      <button class='btn-reset shareBtn' open-type='share'>转发获取魅力值</button>
+      <!-- <button class='btn-reset payBtn' catchtap='payVip'>充值特权（9元/月）</button> -->
+    </view>
+  </view>
+</view>
+<!-- 礼物弹窗 -->
+<image class='shade' wx:if="{{shadeState}}" catchtap='closeAll'></image>
+<view class='giftPop' wx:if="{{giftPopState}}">
+  <view class='aqTop' style='margin-bottom:10rpx;'>
+    <image class='z1Img' src='/images/l1.png'></image>
+    <text class='aqText1'>签手活动</text>
+    <image class='z1Img' src='/images/r1.png'></image>
+  </view>
+  <!-- <image class='hbbgImg' src='/images/hbbg.png'></image> -->
+  <!-- <text class='giftPopText1'>牵手红包</text> -->
+  <picker bindchange="bindGiftChange" value="{{giftIndex}}" range="{{giftData}}">
+    <view class='giftPopList'>
+      <text>{{giftData[giftIndex]}}</text>
+      <image class='test2Img' mode='widthFix' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='giftPopList'>
+      <input type='digit' style="flex:1;" placeholder='报名费' bindinput="baomingfei" value='{{bmf}}'></input>
+      <image class='test2Img' mode='widthFix' src='/images/test2.png'></image>
+  </view>
+  <button class='btn-reset giftPopBtn' catchtap='sendGift'>报名</button>
+  <text class='giftPopText2'>报名费80%到对方账户</text>
+</view>
+<!-- 爱情宣言弹窗 -->
+<view class='aqxyBox' wx:if="{{aqxyState}}">
+  <view class='aqxy'>
+    <image class='closeImg' src='/images/546.png' catchtap='closeAll'></image>
+    <view class='aqTop'>
+      <image class='z1Img' src='/images/l1.png'></image>
+      <text class='aqText1'>TA的故事</text>
+      <image class='z1Img' src='/images/r1.png'></image>
+    </view>
+    <text class='aqText2'></text>
+    <scroll-view scroll-y class='aqxyScrollView'>
+      <block wx:for="{{TempletList}}" wx:key="">
+        <view class='aqArea'>
+          <text>{{item.t_content}}</text>
+          <view class='operationBox'>
+            <text class='jbText' catchtap='jbBtn' data-t_id='{{item.t_id}}'>举报</text>
+            <view class='dazfBox'>
+              <!-- <image class='shareImg' src='/images/share.png'></image>
+              <text>99</text> -->
+              <view class='dzBox' catchtap='dzBtn' data-t_id='{{item.t_id}}'>
+                <image class='dz3Img' src='{{item.thumbup==0?"/images/dz.png":"/images/dz3.png"}}'></image>
+                <text>{{item.thumbup}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <!-- <image class='as1Img' src='/images/as1.png' catchtap='sendStory'></image> -->
+  </view>
+</view>
+<!-- 图片上传弹窗 -->
+<view class='popUpLoadBox' wx:if="{{popUpLoadImg}}">
+  <view class='closeBox'>
+    <image class='popCloseBtn' src='/images/close3.png' catchtap='closePopUpLoad'></image>
+  </view>
+  <image class='userChoiceImg' mode='aspectFill' src='{{userChoiceImg}}'></image>
+  <button class='btn-reset popUpLoadBtn1' catchtap='popUpLoadBtn1'>从相册选择一张</button>
+  <button class='btn-reset popUpLoadBtn1' catchtap='popUpLoadBtn2'>拍一张照片</button>
+</view>
+<!-- 注册基本信息弹窗 -->
+<view class='popS1Box' wx:if="{{popS1Box}}" style='height:800rpx;'>
+  <text class='popS1Text1'> 和Ta聊天介绍下自己\n真实婚恋尊重他人尊重自己</text>
+  <!-- 性别 -->
+  <!-- <picker bindchange="bindPickerChange" value="{{sexIndex}}" range="{{sexData}}">
+    <view class='inputBox'>
+      <text class='text4'>性别</text>
+      <input type='text' class='input2' disabled='disabled' value='{{sexData[sexIndex]}}'></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker> -->
+  <view class='box2'>
+    <text class='text6'>授权微信绑定的手机号<text style='font-size:22rpx;'>（仅红娘可见）</text></text>
+    <button class='btn-reset btn2' open-type='getPhoneNumber' bindgetphonenumber="bindgetphonenumber">{{iv?"已授权":"授权"}}</button>
+  </view>
+  <!-- 职业 -->
+  <view class='inputBox'>
+    <text class='text4'>职业</text>
+    <input type='text' class='input2' bindinput='bindinputIndustry'></input>
+  </view>
+  <picker bindchange="bindinputAge" value="{{ageIndex}}" range="{{ageData}}">
+    <view class='inputBox'>
+      <text class='text4'>生日</text>
+      <input type='number' class='input2' value='{{age}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>身高</text>
+    <input type='number' class='input2' bindinput="bindinputHeight" value='{{userHeight}}'></input>
+    <text class='text5'>cm</text>
+  </view>
+  <picker bindchange="bindinputAddress" bindcolumnchange="addressColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class='inputBox'>
+      <text class='text4'>家乡</text>
+      <input type='text' class='input2' value='{{multiArray[multiIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <button class='btn-reset btn3' catchtap='toTab3' style='margin-top:40rpx;'>确认</button>
+</view>
+
+<!-- 注册隐私信息弹窗 -->
+<view class='popS1Box' wx:if="{{popS2Box}}">
+  <text class='popS1Text1' style='margin-top:50rpx;'>私人信息仅红娘可见\n真实准确红娘免费牵线一次</text>
+  <!-- 图片 -->
+  <view class='inputBox' catchtap='uploadImg'>
+    <text class='text4'>图片</text>
+    <input type='text' class='input2' disabled></input>
+    <text class='text5'>{{uploadState==1?'已上传':"未上传"}}</text>
+  </view>
+  <!-- 学历 -->
+  <picker bindchange="xlChange" value="{{xlIndex}}" range="{{xl}}">
+    <view class='inputBox'>
+      <text class='text4'>学历</text>
+      <input type='number' class='input2' value='{{xl[xlIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <!-- <view class='inputBox'>
+    <text class='text4'>姓名</text>
+    <input type='text' class='input2' bindinput="bindinputName"></input>
+  </view> -->
+  <!-- <view class='inputBox'>
+    <text class='text4'>职业</text>
+    <input type='text' class='input2' bindinput='bindinputIndustry'></input>
+  </view> -->
+  <picker bindchange="xzChange" value="{{xzIndex}}" range="{{xz}}">
+    <view class='inputBox'>
+      <text class='text4'>月薪</text>
+      <input type='number' class='input2' value='{{xz[xzIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="fcChange" value="{{fcIndex}}" range="{{fc}}">
+    <view class='inputBox'>
+      <text class='text4'>房车</text>
+      <input type='text' class='input2' value='{{fc[fcIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  
+  <button class='btn-reset btn3' catchtap='toTab4'>确认</button>
+</view>
+<image class='zhezhao' wx:if="{{zhezhao}}" catchtap='closeAll'></image>

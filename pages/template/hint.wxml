@@ -1,0 +1,11 @@
+<template name="hint">
+<view class='tem-reportBox' wx:if="{{hintData.reportState}}">
+  <view class='tem-report'>
+    <!-- <view class='tem-pop_up'> -->
+      <image src='/images/report.png' class='tem-img1'></image>
+      <text class='tem-text1'>举报审核成功后封号被举报人1个月到10年不等，恶意举报封举报者1个礼拜。</text>
+    <!-- </view> -->
+      <button class='btn-reset tem-btn1' catchtap='closeBtn'>好的</button>
+  </view>
+</view>
+</template>

@@ -1,0 +1,82 @@
+<view class='header' style='height:{{headerHeight}};'>
+  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+    <image class='jianImg' src='/images/jian.png'></image>
+    <text>返回</text>
+  </view>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};'>
+  <image class='wydhnImg' src='/images/wydhn.png'></image>
+  <view class='section'>
+    <view class='desList' style='margin-top:30rpx;'>
+      <button class='btn-reset btn1'>
+        <image class='ass1Img' src='/images/ass1.png'></image>
+        <text>红娘要求</text>
+      </button>
+      <text class='text1'>1  有本地户籍或固定住所20到39岁左右\n2  有书吧咖啡厅等方便组织聚会场所人群优先</text>
+    </view>
+    <view class='desList' style=''>
+      <button class='btn-reset btn1'>
+        <image class='ass1Img' src='/images/ass1.png'></image>
+        <text>红娘收入</text>
+      </button>
+      <text class='text1'>1  活动聚会收入vip客户分成\n2  日常红包或婚礼红包收入</text>
+    </view>
+    <view class='desList' style=''>
+      <button class='btn-reset btn1'>
+        <image class='ass1Img' src='/images/ass1.png'></image>
+        <text>红娘特权</text>
+      </button>
+      <text class='text1'>1  独家获取区域所有单身人群用户信息\n2  可以发起组织社群活动或vip用户服务</text>
+    </view>
+    <view class='jmBox'>
+      <button class='btn-reset jmBtn' open-type='contact'>
+        <image class='ww1Img' src='/images/ww1.png'></image>
+        <text>红娘加盟</text>
+      </button>
+    </view>
+  </view>
+  <view class='section' style='margin-top:24rpx;'>
+<view class='lineBox'>
+    <!-- <image class='img2' src='/images/right.png'></image> -->
+    <text class='text2'>请填写个人信息</text>
+    <!-- <image class='img2' src='/images/left.png'></image> -->
+  </view>
+  <view class='inputList'>
+    <text class='text3'>姓　　名</text>
+    <input class='input1' type='text' bindinput='bindinputName' value='{{name}}'></input>
+  </view>
+  <picker bindchange="bindinputAge" value="{{ageIndex}}" range="{{ageData}}">
+    <view class='inputList'>
+      <text class='text3'>生　　日</text>
+      <input type='number' class='input1' value='{{ageData[ageIndex]}}' disabled></input>
+      <!-- <image class='test2Img' src='/images/test2.png'></image> -->
+    </view>
+  </picker>
+  <view class='inputList'>
+    <text class='text3'>身份证号</text>
+    <input class='input1' type='text' bindinput='bindinputIdcard'></input>
+  </view>
+  <view class='inputList'>
+    <text class='text3'>电　　话</text>
+    <input class='input1' type='number' bindinput='bindinputPhone'></input>
+  </view>
+  <view class='inputList'>
+    <text class='text3'>微　　信</text>
+    <input class='input1' type='text' bindinput='bindinputWx'></input>
+  </view>
+  <picker mode="multiSelector" bindchange="addressChange" bindcolumnchange="addressColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+    <view class='inputList'>
+      <text class='text3'>家庭住址</text>
+      <!-- <input class='input1' type='text' bindinput='bindinputAddress'></input> -->
+      <input class='input1' type='text' value='{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}' disabled></input>
+    </view>
+  </picker>
+  
+  <view class='inputList'>
+    <text class='text3'>街道小区</text>
+    <input class='input1' type='text' bindinput='bindinputStree'></input>
+  </view>
+  <button class='btn-reset btn2' catchtap='toapply'>提交申请</button>
+  </view>
+  
+</view>

@@ -1,0 +1,56 @@
+.continer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #ffffff;
+}
+.header{
+  width: 100%;
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 333;
+}
+.topTitle{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.jianImg{
+  width: 50rpx;
+  height: 50rpx;
+}
+.list{
+  width: 666rpx;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.tab1List{
+  width: 666rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+}
+.tab2Text2{
+  flex: 1;
+  color: #333333;
+}
+.xxxImg{
+  width: 22rpx;
+  height: 12rpx;
+}
+.xzText{
+  width: 666rpx;
+  font-size: 28rpx;
+  line-height: 44rpx;
+  color: #8e8e8e;
+  padding-bottom: 20rpx;
+}
+.z180{
+  transform: rotate(180deg);
+}
