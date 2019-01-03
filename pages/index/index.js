@@ -2097,6 +2097,7 @@ Page({
   jbBtn(res) {
     var that = this;
     var t_id = res.currentTarget.dataset.t_id;
+    var to_user_id = res.currentTarget.dataset.user_id;
     wx.showModal({
       title: '提示',
       content: '是否举报该用户',
@@ -2106,7 +2107,7 @@ Page({
             param: {
               func: "report.chatTemplet",
               from_user_id: app.globalData.user_id,
-              to_user_id: that.data.to_user_id,
+              to_user_id: to_user_id,
               reason: "举报不需要理由",
               t_id: t_id
             },
