@@ -111,66 +111,6 @@ App({
     })
     return pormise
   },
-  socket(res){
-    var that = this;
-    // 建立连接
-    wx.connectSocket({
-      url: "wss://socket.shangxuejin.com/wss",
-    })
-    //连接成功
-    wx.onSocketOpen(function () {
-      console.log("链接成功")
-      var data = '{"type":"' + "login" + '","user_id":"' + that.globalData.user_id + '"}';
-      that.globalData.is_login = true,
-        wx.sendSocketMessage({
-          data: data,
-          success: function (res) {
-            // 接受数据
-            wx.onSocketMessage(function (data) {
-              var data2 = JSON.parse(data.data);
-              switch (data2.type) {
-                case 'send_message':
-                  break;
-                case 'ping':
-                  // console.log("呼吸")
-                  break;
-                case 'chat':
-                  console.log("有人和我说话了")
-                  break;
-                case 'note':
-                  console.log(data2)
-                  var redData = that.globalData.redData;
-                  that.globalData.redData.push(data2);
-                  console.log(that.globalData.redData)
-                  that.globalData.redData = that.unique(that.globalData.redData)
-                  break;
-                default:
-                  break;
-              }
-            })
-          }
-        })
-    })
-  },
-  // 去重
-  unique(arr) {
-    var res = [arr[0]];
-    for (var i = 1; i < arr.length; i++) {
-      var repeat = false;
-      for (var j = 0; j < res.length; j++) {
-        res[j]['is_read'] = 0
-        if (arr[i]['from_user_id'] == res[j]['from_user_id']) {
-          res[j] = arr[i];
-          repeat = true;
-          break;
-        }
-      }
-      if (!repeat) {
-        res.push(arr[i]);
-      }
-    }
-    return res;
-  },
   // 获取用户信息
   getUserMsg(res){
     var that = this;

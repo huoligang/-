@@ -137,7 +137,6 @@
   <view class='closeBox'>
     <image class='popCloseBtn' src='/images/close3.png' catchtap='closeAll'></image>
   </view>
-  <!-- <image class='popImg1' src='/images/81.png'></image> -->
   <view class='aqTop'>
     <image class='z1Img' src='/images/l1.png'></image>
     <text class='aqText1'>我的故事</text>

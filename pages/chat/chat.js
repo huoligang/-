@@ -52,7 +52,6 @@ Page({
     }else{
       var userData = app.globalData.chatData;
     }
-    
     console.log(userData)
     console.log("上面是带进来的参数")
     var that = this;
@@ -356,19 +355,6 @@ Page({
     if (that.data.errorState) {
       return false
     }
-    // if(!that.data.is_vip){
-    //   that.setData({
-    //     vipState : true
-    //   })
-    //   return
-    // }
-    // fn.http({
-    //   param: { func: "chat.uploadFile", user_id: app.globalData.user_id,to_user_id: app.globalData.user_id },
-    //   success: function (res) {
-    //     console.log(res);
-    //   }
-    // })
-    // return false
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
@@ -514,9 +500,6 @@ Page({
       current: imgUrl, // 当前显示图片的http链接
       urls: [imgUrl] // 需要预览的图片http链接列表
     })
-    // that.setData({
-    //   lookImg: true
-    // })
   },
   play:function(res){
     var that = this;
@@ -965,33 +948,6 @@ Page({
     var that = this;
     that.setData({
       vipState : false
-    })
-  },
-  // 购买VIP
-  payVip(res) {
-    var that = this;
-    fn.http({
-      param: { func: 'pay.vip', user_id: app.globalData.user_id },
-      success: function (res) {
-        console.log(res)
-        wx.requestPayment({
-          appId: res.appId,
-          timeStamp: String(res.timeStamp),
-          nonceStr: res.nonceStr,
-          package: res.package,
-          signType: "MD5",
-          paySign: res.paySign,
-          success: function (res) {
-            that.is_vip();
-            that.setData({
-              vipState: false
-            })
-          },
-          'fail': function (res) {
-            console.log(res);
-          }
-        })
-      }
     })
   },
   /**

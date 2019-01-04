@@ -153,38 +153,12 @@ Page({
       }
     })
   },
-  // 去重
-  unique(arr) {
-    var res = [arr[0]];
-    for (var i = 1; i < arr.length; i++) {
-      var repeat = false;
-      for (var j = 0; j < res.length; j++) {
-        res[j]['is_read'] = 0
-        if (arr[i]['from_user_id'] == res[j]['from_user_id']) {
-          res[j] = arr[i];
-          repeat = true;
-          break;
-        }
-      }
-      if (!repeat) {
-        res.push(arr[i]);
-      }
-    }
-    return res;
-  },
   // 显示下标
   showText(res) {
     var that = this;
     var idx = res.currentTarget.dataset.idx;
     that.setData({
       showIdx: that.data.showIdx == idx ? 0 : idx
-    })
-  },
-  // 我想说的话
-  meWant(res) {
-    var that = this;
-    that.setData({
-      meWantSay: res.detail.value
     })
   },
   // 点击头像查看详情
@@ -203,67 +177,6 @@ Page({
           seeData: res.userinfo
         })
         console.log(res);
-      }
-    })
-  },
-  // 发送消息---废弃
-  bindconfirm: function(res) {
-    var that = this;
-    app.globalData.now_t_id = res.t_id;
-    fn.http({
-      param: {
-        func: "chat.updTemplet",
-        t_id: res.t_id,
-        t_content: res.t_content,
-        user_id: app.globalData.user_id
-      },
-      success: function(res) {
-        if (res.code == '-100032') {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            showCancel: false
-          })
-        } else {
-          // 获取首页消息
-          that.getIndexData();
-          // 关闭所有
-          that.closeAll();
-          that.setData({
-            chatValue: "",
-            meWantSay: ""
-          })
-        }
-      }
-    })
-  },
-  fasong: function(res) {
-    var that = this;
-    var chatValue = that.data.chatValue;
-    if (!chatValue) {
-      return false;
-    } //空消息返回
-    fn.http({
-      param: {
-        func: "chat.sendTemplet",
-        user_id: app.globalData.user_id,
-        content: chatValue
-      },
-      success: function(res) {
-        console.log(res);
-        if (res.code == '-100010') {
-          wx.showModal({
-            title: '提示',
-            content: res.msg,
-            showCancel: false
-          })
-        } else {
-          // 获取首页消息
-          that.getIndexData();
-          that.setData({
-            chatValue: ""
-          })
-        }
       }
     })
   },

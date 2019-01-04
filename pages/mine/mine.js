@@ -202,46 +202,6 @@ Page({
       complete: function(res) {},
     })
   },
-  // 测试
-  test(res) {
-    var that = this;
-    var param;
-    // 红娘申请
-    // param={ 
-    //   func: 'user.hongregis', 
-    //   user_id: app.globalData.user_id,
-    //   idcard:12313213,
-    //   phone:15555555555,
-    //   wx:'123456',
-    //   address: '废物荷藕分我',
-    //   stree:'肥沃',
-    //   name:'fewef',
-    //   lat:'1235',
-    //   lng:'546'
-    //   }
-    param = {
-      func: 'user.register',
-      user_id: app.globalData.user_id,
-      name: 'wef',
-      gender: 1,
-      age: 23,
-      height: 170,
-      address: 'asdfasdfsdafa',
-      industry: 'dafwfee',
-      salary: 15000,
-      touringcar: '没放'
-    }
-    // param={
-    //   func:'user.myinfo',
-    //   user_id:app.globalData.user_id
-    // }
-    fn.http({
-      param: param,
-      success: function (res) {
-        console.log(res);
-      }
-    })
-  },
   /**
    * 生命周期函数--监听页面隐藏
    */
