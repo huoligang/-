@@ -74,6 +74,7 @@ App({
                 var popData = res.friend;
                 var res = res.arr;
                 that.globalData.user_id = res.user_id//用户ID
+                // that.globalData.user_id = 1016;
                 that.globalData.isUserId = res.user_id //用户ID
                 that.globalData.is_new = res.is_new//是否是新用户
                 that.globalData.is_lock = res.is_lock//是否是新用户
@@ -91,6 +92,7 @@ App({
                     that.globalData.user_name = res.userinfo.nickname//用户名称
                     that.globalData.header = res.userinfo.head//用户头像
                     that.globalData.honglog = res.userinfo.honglog//0否 1是 2审核
+                    // that.globalData.honglog = 1
                     that.globalData.gender = res.userinfo.gender//性别
                     that.globalData.height = res.userinfo.height//身高
                     that.globalData.touringcar = res.userinfo.touringcar//房车

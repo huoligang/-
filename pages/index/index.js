@@ -384,18 +384,20 @@ Page({
       }, function() {
         var abc = app.globalData.popData;
         var abc2 = abc.splice(0, 1);
-        app.globalData.popData = abc
+        app.globalData.popData = abc2
       })
     } else if (app.globalData.server != "") {
+      console.log("zhixing")
       that.setData({
         xrText: app.globalData.server[0],
         zhezhao2: true,
         xrPopState: true
       }, function() {
         var server = app.globalData.server;
-        var server2 = server.splice(0, 1);
-        app.globalData.server = server2;
-        if (server2=="") {//最后一条消息删除
+        server.splice(0, 1);
+        app.globalData.server = server;
+        console.log(server)
+        if (server=="") {//最后一条消息删除
           fn.http({
             param: { func: "user.read_server", user_id: app.globalData.user_id },
             success: function (res) {}

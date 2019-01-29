@@ -500,6 +500,7 @@ Page({
       },
       success: function(res) {
         that.setData({
+          is_loading: false,
           orderLogData: res
         })
       }
