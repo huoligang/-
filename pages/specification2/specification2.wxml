@@ -1,10 +1,17 @@
 <view class='header' style='height:{{headerHeight}};'>
   <view class='topTitle' style='margin-top:{{mtHeader}};' catchtap='backMine'>
     <image class='jianImg' src='/images/jian.png'></image>
-    <text>用户须知</text>
+    <text>红娘服务</text>
   </view>
 </view>
 <view class='continer' style='padding-top:{{headerHeight}};'>
+  <text class='xzText2'>附近的缘分是链接附近的红娘和附近的单身婚恋社交平台，不同地区不同红娘能提供的服务也不相同成本不同价格也不同，服务类型大致如下三类；</text>
+  <text class='xzText3'>月佬牵线：服务周期一个月，牵线3到10人不等，可以参加红娘组织线上线下活动不等次数。</text>
+  <text class='xzText3'>季度红娘：服务周期三个月，牵线6到20人不等，可以参加红娘祖师线上线下活动不等次数。</text>
+  <text class='xzText3'>年度至婚：服务周期十二个月，牵线10到50人不等， 可以参加红娘组织线上线下活动不等次数。</text>
+  <text class='xzText' style='padding-top:20rpx;'>重要提醒：服务价格定价权在红娘自己，平台起到一定的监督作用，不建议用户私下直接和红娘个人转账，发生经济诈骗等意外情况与平台无关！</text>
+</view>
+<view class='continer' style='padding-top:{{headerHeight}};' wx:if="{{0}}">
   <!-- 第一部分 -->
   <view class='list'>
     <view class='tab1List' catchtap='showThis' data-idx='1'>
@@ -70,5 +77,4 @@
     </view>
     <text class='xzText' wx:if="{{showIndex==8}}">婚恋领域是纠纷和犯罪的高发区，异性之间产生矛盾和彼此伤害都是难以避免的。 作为平台我们在此郑重提醒广大用户，你可能遇到以下情况：\n1.发现交往对象并不是单身。这些非单身者有的是对现有的婚恋关系不满意，进入的目的是耐不住寂寞的人就想通过平台寻找临时情人。\n2.发现交往对象提供的个人信息不真实或不全面。有的人为了骗取他人的信任，对自己的经历和现实情况胡编乱造；有的人为了获得别人的好感，只把好的方面展示出来，却把坏的方面进行掩盖。最常见的情况是婚姻状况是离异或有孩子，但资料上写的却是未婚和无孩子。\n3.与人交往过程中财物方面受到了损失。交友时出现的消费开支、馈赠礼品、钱物借还等情况是常见的，如果双方在情感方面出现波折，受损失的一方就会感觉受到了欺骗。\n4.双方在领证结婚前发生了同居关系。如果男方选择中止交往，女方就会认为受到了伤害。\n5.对交往对象不满意，却摆脱不了对方的苦苦纠缠，甚至遭到暴力威胁和身体伤害，对生活和工作产生了极坏的影响。\n6.在不知情的情况下，与吸毒者、赌博者、犯罪者、传染病和精神病患者以及其他性格缺陷或行为不端的人发生了情感关系，在精神方面、经济方面、身体方面可能受到很大伤害。</text>
   </view>
-  <text class='xzText' style='padding-top:20rpx;'>以上情况，平台并不能承担责任，请理解！ 最后希望您早日找到合适自己的人！</text>
 </view>

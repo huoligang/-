@@ -1,5 +1,5 @@
 <view class='header' style='height:{{headerHeight}};'>
-  <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;margin-left:0;'>小黑屋</text>
+  <text class='topTitle' style='margin-top:{{mtHeader}};'>私聊</text>
 </view>
 <view class='continer' style='padding-top:{{headerHeight}}'>
   <!-- 提示文本 -->
@@ -16,7 +16,7 @@
   <view class='recordBox {{!item.is_read && user_id!=item.from_user_id?"redDot":""}}' wx:if="{{item!=undefined}}" catchtap='toChat' data-itemdata='{{item}}' >
     <view class='recordTop'>
       <view class='recordTLeft' catchtap='toChat' data-itemdata='{{item}}'>
-        <image class='userHeaderImg ' src='{{item.avatarurl}}'></image>
+        <image class='userHeaderImg' mode='aspectFill' src='{{item.avatarurl}}'></image>
         <image class='sexImg' src='{{item.gender==1?"/images/sex1.png":"/images/sex2.png"}}'></image>
         <text class='userNameText'>{{item.nickname}}</text>
         <image class='xingxing' src='/images/3.png'></image>

@@ -1,5 +1,5 @@
 <view class='header' style='height:{{headerHeight}};background:#ffffff;'>
-    <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;margin-left:30rpx;'>我的</text>
+    <text class='topTitle' style='margin-top:{{mtHeader}};'>我的</text>
 </view>
 <view class='continer' style='padding-top:{{headerHeight}};'>
   <view class='userHeadBox'>
@@ -43,6 +43,11 @@
   <view class='mineList' catchtap='specification'>
     <image class='mlImg' src='/images/ml5.png'></image>
     <text class='mlTitle'>用户须知</text>
+    <image class='xyjtImg' src='/images/xyjt.png'></image>
+  </view>
+  <view class='mineList' catchtap='specification2'>
+    <image class='mlImg' src='/images/ml5.png'></image>
+    <text class='mlTitle'>红娘服务说明</text>
     <image class='xyjtImg' src='/images/xyjt.png'></image>
   </view>
   <image class='jiyiImg' mode='widthFix' src='{{saveImg}}'></image>

@@ -1,27 +1,36 @@
 <view class='continer' wx:if="{{!is_hn && !is_loading}}" style='padding-top:{{headerHeight}};'>
-  <view class='header' style='height:{{headerHeight}};'>
-    <text class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;'>{{headerName}}</text>
+  <view class='header' style='height:{{headerHeight}};padding-top:{{mtHeader}};'>
+    <text class='topTitle'>{{headerName}}</text>
   </view>
   <!-- 列表 -->
-  <block wx:for="{{redData}}" wx:key="">
+  <!-- wx:for="{{redData}}" wx:key="" -->
+  <block>
     <view class='redList'>
       <view class='box1'>
-        <image class='img2' src='{{item.avatarurl}}'></image>
+        <image class='img2' mode='aspectFill' src='{{redData[0].avatarurl}}'></image>
         <view class='top2'>
-          <text class='redText1'><image class='sexImg' src='{{item.gender==1?"/images/sex1.png":"/images/sex2.png"}}'></image>{{item.nickname}}</text>
-          <text class='signText'>{{item.hongtype}}</text>
+          <view class='redText1'>
+            <!-- <image class='sexImg' src='{{item.gender==1?"/images/sex1.png":"/images/sex2.png"}}'></image> -->
+            <view class='hnNameBox'>
+              <view class='hnNameText'>
+                <text>{{redData[0].nickname}}</text>
+                <text class='signText' wx:if="{{redData[0].hongtype!=null}}">{{redData[0].hongtype}}</text>
+              </view>
+              <text class='hnDistance' wx:if="{{redData[0].user_id!='148'}}">红娘距您:{{redData[0].distance}}km</text>
+            </view>
+          </view>
         </view>
         <!-- <text class='redText3' catchtap='toChat' data-msglist='{{item}}'>聊天</text> -->
-        <image class='lt2Img' src='/images/lt2.png' catchtap='toChat' data-msglist='{{item}}'></image>
+        <image class='lt2Img' src='/images/lt2.png' catchtap='toChat' data-msglist='{{redData[0]}}'></image>
       </view>
-      <view class='top3Box'  wx:if="{{item.hongtype=='实习红娘'}}">
+      <!-- <view class='top3Box'  wx:if="{{item.user_id=='148'&& index==0}}">
         <view class='top3'>
           <view class='top3List'>
             <text class='top3ListText1'>年龄</text>
             <text class='top3ListText2'>{{item.age}}<text style='font-size:24rpx;margin-left:10rpx;'>岁</text></text>
           </view>
           <view class='top3List'>
-            <text class='top3ListText1'>距离红娘</text>
+            <text class='top3ListText1'>红娘距您</text>
             <text class='top3ListText2'>{{item.distance}}<text style='font-size:24rpx;margin-left:10rpx;'>km</text></text>
           </view>
           <view class='top3List'>
@@ -30,40 +39,49 @@
           </view>
         </view>
         <button class='btn-reset zfbImg2' open-type='share'><image class='zfbImg' src='/images/zfb.png'></image></button>
-      </view>
-      
+      </view> -->
+
       <!-- <view class='mapBox'>
         <map wx:if="{{mapShow}}" id="qqMap" scale="13" style="width: 100%; height: 100%;" latitude="{{item.latitude}}" longitude="{{item.longitude}}" markers="{{markersData[index]}}" show-location></map>
       </view> -->
-      <view class='hnMessageBox' wx:if="{{item.hongtype=='实习红娘'}}">
+      <button class='btn-reset zfbImg2' open-type='share'>
+        <image class='img100' src='/images/zfb2.png'></image>
+      </button>
+      <view class='hnMessageBox' wx:if="{{redData[0].user_id!='148'}}">
         <image class='dwImg' src='/images/dw.png'></image>
-        <text class='hnAddressText'>{{item.address}}{{item.stree!=null?item.stree:''}}</text>
-        <image class='phoneImg' src='/images/phone.png' catchtap='makePhone' data-phone='{{item.phone}}'></image>
-        <image class='wx3Img' src='/images/wx3.png' catchtap='copyWx' data-wx='{{item.wx}}'></image>
+        <text class='hnAddressText'>{{redData[0].address}}{{redData[0].stree!=null?redData[0].stree:''}}</text>
+        <image class='phoneImg' src='/images/phone.png' catchtap='makePhone' data-phone='{{redData[0].phone}}'></image>
+        <image class='wx3Img' src='/images/ww1.png' catchtap='copyWx' data-wx='{{redData[0].wx}}'></image>
       </view>
       <!-- 官方红娘 -->
-      <view class='noMsgBox' wx:if="{{item.hongtype!='实习红娘'}}">
-        <!-- <image class='img1' src='/images/08.png'></image> -->
+      <view class='noMsgBox' wx:if="{{redData[0].user_id=='148'}}">
         <text class='nohnText1'>您所在当前区域没有代理红娘\n申请当红娘带领单身脱光</text>
-        <button class='btn-reset wydhnBtn' catchtap='redApply'><image class='dhnImg' src='/images/dhn.png'></image></button>
+        <button class='btn-reset wydhnBtn' catchtap='redApply'>
+          <image class='dhnImg' src='/images/dhn.png'></image>
+        </button>
       </view>
     </view>
   </block>
   <view class='centerTab'>
     <text class='centerTabText {{centerTabIndex==4?"centerTabActive":""}}' catchtap='centerTab' data-idx='4'>红娘说</text>
-    <text class='centerTabText {{centerTabIndex==1?"centerTabActive":""}}' catchtap='centerTab' data-idx='1'>热门</text>
-    <text class='centerTabText {{centerTabIndex==2?"centerTabActive":""}}' catchtap='centerTab' data-idx='2'>单身团</text>
+    <text class='centerTabText {{centerTabIndex==1?"centerTabActive":""}}' catchtap='centerTab' data-idx='1'>单身团</text>
+    <text class='centerTabText {{centerTabIndex==2?"centerTabActive":""}}' catchtap='centerTab' data-idx='2'>搜索</text>
     <text class='centerTabText {{centerTabIndex==3?"centerTabActive":""}}' catchtap='centerTab' data-idx='3'>服务</text>
   </view>
   <!-- 红娘说 -->
-  <view class='hnstory' wx:if="{{centerTabIndex==4}}">{{redData[0].t_content}}</view>
+  <block wx:for="{{hnStoryList}}" wx:key="" wx:if="{{centerTabIndex==4}}">
+    <view class='hnstory'>{{item.t_content}}</view>
+  </block>
   <!-- 推荐 -->
   <view class='bottomSection' wx:if="{{centerTabIndex==1}}">
     <block wx:for="{{tjData}}" wx:key="">
       <view class='tjList'>
         <image class='{{item.head?"mrtImg2":"mrtImg"}}' mode='aspectFit' src='{{item.headlog!=2?item.head:"/images/mrt.png"}}'></image>
-        <view class='tjListBox' catchtap='aqxy' data-id='{{item.user_id}}'>
-          <view class='tjText1' catchtap='seeDetail' data-seeid='{{item.user_id}}'><image class='avatarImg2' src='{{item.avatarurl}}'></image><text>{{item.nickname}}</text></view>
+        <view class='tjListBox' catchtap='seeDetail' data-seeid='{{item.user_id}}'>
+          <view class='tjText1' >
+            <image class='avatarImg2' mode='aspectFill' src='{{item.avatarurl}}'></image>
+            <text>{{item.nickname}}</text>
+          </view>
           <text class='tjText2' wx:if="{{item.address!=null}}">{{item.age}}岁/{{item.address}}/{{item.industry}}</text>
           <text class='tjText2' wx:else>对方未填写信息</text>
         </view>
@@ -142,36 +160,36 @@
             <button form-type='submit' wx:if="{{item.user_id!=user_id}}" class='btn-reset liaota' catchtap='toChat' data-msglist='{{item}}' data-type='6'>聊天</button>
           </form>
         </view>
-        <view class='box_text'>{{item.t_content}}</view>
+        <view class='box_text' wx:if="{{item.t_content!=null}}">{{item.t_content}}</view>
       </view>
     </block>
   </view>
   <!-- 报名 -->
   <view class='bottomSection' style='background:#ffffff;overflow:hidden;white-space:nowrap;' wx:if="{{centerTabIndex==3}}">
-    <scroll-view scroll-x class='bmBox' style='width:100%;height296rpx;over'>
+    <scroll-view scroll-x class='bmBox' style='width:100%;height:296rpx;'>
       <view class='bmList'>
         <text class='bmListText1'>{{giftData[0].g_name}}</text>
-        <input class='bmListInput1'  bindinput="baomingfei" value='{{bmMoney}}' type='number' placeholder='请输入金额'></input>
+        <input class='bmListInput1' bindinput="baomingfei" value='{{bmMoney}}' type='digit' placeholder='请输入金额'></input>
         <!-- <input class='bmListInput1' wx:if="{{giftData[0].status}}" type='number' disabled value="{{giftData[0].o_money}}"></input> -->
         <button class='btn-reset giftPopBtn' catchtap='sendGift' data-g_id='{{giftData[0].g_id}}' data-payType='1'>报名</button>
         <!-- <button class='btn-reset giftPopBtn' wx:if="{{giftData[0].status}}" style='background:#d7d7d7;'>已报名</button> -->
       </view>
       <view class='bmList'>
         <text class='bmListText1'>{{giftData[1].g_name}}</text>
-        <input class='bmListInput1'  wx:if="{{!giftData[1].status}}" bindinput="baomingfei2" value='{{bmMoney2}}' type='number' placeholder='请输入金额'></input>
-        <input class='bmListInput1' wx:if="{{giftData[1].status}}" type='number' disabled value="{{giftData[1].o_money}}"></input>
-        <button class='btn-reset giftPopBtn' wx:if="{{!giftData[1].status}}" catchtap='sendGift' data-g_id='{{giftData[1].g_id}}' data-payType='2'>报名</button>
-        <button class='btn-reset giftPopBtn' wx:if="{{giftData[1].status}}" style='background:#d7d7d7;'>已报名</button>
+        <input class='bmListInput1' bindinput="baomingfei2" value='{{bmMoney2}}' type='digit' placeholder='请输入金额'></input>
+        <!-- <input class='bmListInput1' wx:if="{{giftData[1].status}}" type='number' disabled value="{{giftData[1].o_money}}"></input> -->
+        <button class='btn-reset giftPopBtn' catchtap='sendGift' data-g_id='{{giftData[1].g_id}}' data-payType='2'>报名</button>
+        <!-- <button class='btn-reset giftPopBtn' wx:if="{{giftData[1].status}}" style='background:#d7d7d7;'>已报名</button> -->
       </view>
       <view class='bmList'>
         <text class='bmListText1'>{{giftData[2].g_name}}</text>
-        <input class='bmListInput1'  wx:if="{{!giftData[2].status}}" bindinput="baomingfei3" value='{{bmMoney3}}' type='number' placeholder='请输入金额'></input>
-        <input class='bmListInput1' wx:if="{{giftData[2].status}}" type='number' disabled value="{{giftData[2].o_money}}"></input>
-        <button class='btn-reset giftPopBtn' wx:if="{{!giftData[2].status}}" catchtap='sendGift' data-g_id='{{giftData[2].g_id}}' data-payType='3'>报名</button>
-        <button class='btn-reset giftPopBtn' wx:if="{{giftData[2].status}}" style='background:#d7d7d7;'>已报名</button>
+        <input class='bmListInput1' bindinput="baomingfei3" value='{{bmMoney3}}' type='digit' placeholder='请输入金额'></input>
+        <!-- <input class='bmListInput1' wx:if="{{giftData[2].status}}" type='number' disabled value="{{giftData[2].o_money}}"></input> -->
+        <button class='btn-reset giftPopBtn' catchtap='sendGift' data-g_id='{{giftData[2].g_id}}' data-payType='3'>报名</button>
+        <!-- <button class='btn-reset giftPopBtn' wx:if="{{giftData[2].status}}" style='background:#d7d7d7;'>已报名</button> -->
       </view>
     </scroll-view>
-    <view class='bmHint'>报名费直接进到红娘账户</view>
+    <view class='bmHint'>提醒：和红娘私下交易平台不承担任何责任</view>
     <block wx:for="{{orderLogData}}" wx:key="">
       <view class='bmRecord'>
         <view class='bmRLeft'>
@@ -182,7 +200,7 @@
           <text class='bmRText1' style='color:#ff7a67;margin-right:10rpx;'>已报名</text>
           <text class='bmRText1'>{{item.g_name}}</text>
         </view>
-        
+
       </view>
     </block>
   </view>
@@ -199,7 +217,7 @@
 <image class='zhezhao' wx:if="{{zhezhao}}" catchtap='colseAll'></image>
 <!-- 注册隐私信息弹窗 -->
 <view class='popS1Box' wx:if="{{popS2Box}}">
-  <text class='popS1Text1'>让红娘简单了解你的信息\n方便为你牵线\n<text style='color:#ff9171'>（此部分信息仅红娘可见）</text></text>
+  <text class='popS1Text1'>让红娘简单了解你的信息\n方便为你牵线\n<text style='color:#ff9171;'>（此部分信息仅红娘可见）</text></text>
   <!-- 学历 -->
   <picker bindchange="xlChange" value="{{xlIndex}}" range="{{xl}}">
     <view class='inputBox'>
@@ -260,7 +278,9 @@
             </view>
             <view class='dazfBox'>
               <view class='dzBox' catchtap='dzBtn' data-t_id='{{item.t_id}}' data-user_id='{{item.user_id}}'>
-                <button class='btn-reset dz4Img' open-type='share'><image class='dz4Img' src='{{item.thumbup==0?"/images/share.png":"/images/zhuan2.png"}}'></image></button>
+                <button class='btn-reset dz4Img' open-type='share'>
+                  <image class='dz4Img' src='{{item.thumbup==0?"/images/share.png":"/images/zhuan2.png"}}'></image>
+                </button>
                 <text style='margin-right:60rpx;'>{{item.forward}}</text>
                 <image class='dz3Img' src='{{item.thumbup==0?"/images/dz.png":"/images/dz3.png"}}'></image>
                 <text>{{item.thumbup}}</text>
@@ -275,41 +295,80 @@
 </view>
 <!-- 查看信息弹窗 -->
 <view class='seeDetailPop' wx:if="{{seeDetailState}}">
-  <image class='popCloseBtn2' src='/images/0421.png' catchtap='colseAll'></image>
+  <view class='closeBox' catchtap='colseAll'>
+    <image class='closeImg' src='/images/close8.png'></image>
+  </view>
   <image class='seeDetailPopimg2' mode='aspectFill' src='{{seeData.head}}'></image>
-  <text class='seeDetailPoptext2'>{{seeData.name}}　{{seeData.gender==1?'男':'女'}}　{{seeData.age+'岁'}}　{{seeData.stree==null?'':seeData.stree}}</text>
-  <view class='detailBox1'>
-    <view class='tailList'>
-      <text>身高</text>
-      <text style='color:#fe7c65;'>{{seeData.height}}cm</text>
-    </view>
-    <view class='tailList'>
-      <text>家乡</text>
-      <text style='color:#fe7c65;'>{{seeData.address==null?'':seeData.address}}</text>
-    </view>
-    <view class='tailList'>
-      <text>职业</text>
-      <text style='color:#fe7c65;'>{{seeData.industry==null?'':seeData.industry}}</text>
-    </view>
+      <text class='seeDetailPoptext2'>{{seeData.nickname}}　{{seeData.gender==1?'男':'女'}}　{{seeData.age+'岁'}}　{{seeData.stree==null?'':seeData.stree}}</text>
+  <view class='detailBox'>
+    <scroll-view scroll-y style='width:100%;height:100%;'>
+      <view class='detailList'>
+        <text class='tetailListLeft'>故事</text>
+        <text class='tetailListRight'>{{seeData.t_content==null?"对方暂未设置":seeData.t_content}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>生日</text>
+        <text class='tetailListRight'>{{2019-seeData.age}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>身高</text>
+        <text class='tetailListRight'>{{seeData.height}}cm</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>家乡</text>
+        <text class='tetailListRight'>{{seeData.address==null?'对方暂未设置':seeData.address}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>职业</text>
+        <text class='tetailListRight'>{{seeData.industry==null?'对方暂未设置':seeData.industry}}</text>
+      </view>
+      <view class='detailCenter'>
+        <text class='line2'></text>
+        <text class='tailText1'>以下仅红娘可见</text>
+        <text class='line2'></text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>手机微信</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.phone==null?"对方暂未设置":seeData.phone:"？"}}</text>
+        <text wx:if="{{honglog==1 && seeData.phone!=null}}" catchtap='copyWx2' data-wx='{{seeData.phone}}' class='fz9'>复制</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>学历</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.educate==null?"对方暂未设置":xl[seeData.educate]:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>月薪</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.salary==1?'1000~5000':seeData.salary==2?'5000~10000':seeData.salary==3?'10000~20000':'20000以上':"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>房车</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.touringcar==0?'对方暂未设置':fc[seeData.touringcar]:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>过往</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.marriage_history==0?"对方暂未设置":gw[seeData.marriage_history]:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>生肖</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.zodiac==null?"对方暂未设置":seeData.zodiac:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>兄弟姐妹</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.family==null?"对方暂未设置":seeData.family:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>父母</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.parent==null?"对方暂未设置":seeData.parent:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>兴趣</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.interest==null?"对方暂未设置":seeData.interest:"？"}}</text>
+      </view>
+      <view class='detailList'>
+        <text class='tetailListLeft'>和谁住</text>
+        <text class='tetailListRight'>{{honglog==1?seeData.with_who==null?"对方暂未设置":seeData.with_who:"？"}}</text>
+      </view>
+    </scroll-view>
   </view>
-  <view class='detailCenter'>
-    <text class='line2'></text>
-    <text class='tailText1'>以下仅红娘可见</text>
-    <text class='line2'></text>
-  </view>
-  <view class='detailBox1'>
-    <view class='tailList'>
-      <text>姓名</text>
-      <text style='color:#fe7c65;'>{{honglog==1?seeData.nickname:"？"}}</text>
-    </view>
-    <view class='tailList'>
-      <text>月薪</text>
-      <text style='color:#fe7c65;'>{{honglog==1?seeData.salary:"？"}}</text>
-    </view>
-    <view class='tailList'>
-      <text>房车</text>
-      <text style='color:#fe7c65;'>{{honglog==1?seeData.touringcar:"？"}}</text>
-    </view>
-  </view>
-  <text class='tailBottom' style='color:#fe7c65;'>TA的电话：{{honglog==1?seeData.phone:"？"}}</text>
+  <view class='detailBtn' style='color:#{{honglog==1?"":"999999"}};' catchtap='{{honglog==1?"copyMsg":""}}'>复制资料</view>
 </view>

@@ -15,7 +15,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      headerHeight: (app.globalData.headerHeight2 - 0) * 2 + 10 + 'rpx',
+      headerHeight: app.globalData.headerHeight,
+      mtHeader: app.globalData.mtHeader,
       headerHeight2: app.globalData.headerHeight2
     })
   },
@@ -32,6 +33,14 @@ Page({
    */
   onShow: function () {
     var that = this;
+    that.getUserMsg();
+    that.getOrderLog();
+    that.getUserLog();
+    
+  },
+  // 获取用户信息
+  getUserMsg(){
+    var that = this;
     fn.http({
       param: { func: "user.me", user_id: app.globalData.user_id },
       success: function (res) {
@@ -41,10 +50,20 @@ Page({
         that.setData({
           userData: userMyself
         })
+        //牵线服务
+        that.getpullorderLog();
       }
     })
-    that.getOrderLog();
-    that.getUserLog();
+  },
+  // 提现
+  tixian(res) {
+    var that = this;
+    fn.http({
+      param: { func: 'pay.merchantPay', user_id: app.globalData.user_id, balance: that.data.userData.balance },
+      success: function (res) {
+        that.getUserMsg();
+      }
+    })
   },
   // 红娘服务
   getOrderLog(res) {
@@ -55,7 +74,6 @@ Page({
         district: app.globalData.userMyself.district
       },
       success: function (res) {
-        console.log(res);
         that.setData({
           orderLogData: res
         })
@@ -71,9 +89,24 @@ Page({
         user_id: app.globalData.user_id,
       },
       success: function (res) {
-        console.log(res);
         that.setData({
           userLogData: res
+        })
+      }
+    })
+  },
+  //牵线服务
+  getpullorderLog(res) {
+    var that = this;
+    fn.http({
+      param: {
+        func: "pay.pullorderLog",
+        // district: that.data.userData.district,
+        user_id: app.globalData.user_id
+      },
+      success: function (res) {
+        that.setData({
+          pullorderLog: res
         })
       }
     })

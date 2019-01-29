@@ -13,22 +13,34 @@ Page({
     // sexIndex: 0,
     age: 1992,
     // ageIndex: 0,
-    xz: ['收入', '1000~5000', '5000~10000', '10000~20000', '20000以上'],
-    // xzIndex: 0,
+    xz: ['收入', '2000~4000', '4000~6000', '6000~10000', '10000~15000', '15000以上'],
+    xzIndex: 0,
     fc: ['车房', '无车无房', '无车有房', '有车无房', '有车有房'],
-    // fcIndex: 0,
-    xl: ['学历', '高中及以下', '专科', '本科', '硕士', '博士及以上'],
-    // xlIndex: 0,
-    phoneState:0
+    fcIndex: 0,
+    xl: ['学历', '专科以下', '专科', '本科', '硕士', '博士及以上'],
+    xlIndex: 0,
+    phoneState:0,
+    xingge: ['选择性格', '内向', '外向'],
+    xinggeIndex: 0,
+    fumu: ['双全', '母亲', '父亲'],
+    fumuIndex: 0,
+    gw: ['过往', '未婚', '离异'],
+    gwIndex: 0,
+    zhusu: ['父母', '独居'],
+    zhusuIndex: 0,
+    shengxiao: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+    shengxiaoIndex: 0,
+    xingzuo: ['处女座', '狮子座', '双鱼座', '天蝎座', '摩羯座', '金牛座', '巨蟹座', '双子座', '天秤座', '水瓶座', '白羊座', '射手座'],
+    xingzuoIndex: 0
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
     that.setData({
-      headerHeight: (app.globalData.headerHeight2 - 0) * 2 + 10 + 'rpx',
+      headerHeight: app.globalData.headerHeight,
+      mtHeader: app.globalData.mtHeader,
       headerHeight2: app.globalData.headerHeight2
     })
   },
@@ -44,36 +56,30 @@ Page({
     this.setData({
       sexIndex: e.detail.value
     })
-    console.log(this.data.sexIndex)
   },
   // 生日
   bindinputAge(e) {
     var that = this;
     this.setData({ age: e.detail.value })
-    console.log(this.data.age)
   },
   // 身高
   bindinputHeight(e) {
     this.setData({ userHeight: e.detail.value })
-    console.log(this.data.userHeight)
   },
   // 家乡
   bindinputAddress(e) {
     var that = this;
     this.setData({ multiIndex: e.detail.value, address: that.data.multiArray[e.detail.value] })
-    console.log(that.data.multiArray[e.detail.value])
   },
   // 姓名
   bindinputName(e) {
     this.setData({
       zcName: e.detail.value
     })
-    console.log(this.data.zcName)
   },
   // 学历
   xlChange(res) {
     this.setData({ xlIndex: res.detail.value })
-    console.log(res.detail.value)
   },
   // 行业
   bindinputIndustry(e) {
@@ -90,33 +96,75 @@ Page({
     this.setData({ fcIndex: res.detail.value })
     console.log(res.detail.value)
   },
+  // 过往
+  gwChange(res) {
+    this.setData({ gwIndex: res.detail.value })
+  },
   // 获取手机号
   bindgetphonenumber(e) {
     var that = this;
-    that.setData({
-      iv: e.detail.iv,
-      encryptedData: e.detail.encryptedData,
-      phoneState:1
+    fn.http({
+      param: {
+        func: 'user.registerphone',
+        user_id: app.globalData.user_id,
+        iv: e.detail.iv,
+        encryptedData: e.detail.encryptedData,
+      },
+      success: function (res) {
+        that.setData({
+          phoneState: 1
+        })
+      }
     })
+  },
+  // 非必填项
+  // 生肖
+  shengxiaoChange(res){
+    this.setData({ shengxiaoIndex: res.detail.value })
+  },
+  // 星座
+  xingzuoChange(res) {
+    this.setData({ xingzuoIndex: res.detail.value })
+  },
+  // 性格
+  xinggeChange(res) {
+    this.setData({ xinggeIndex: res.detail.value })
+  },
+  // 家庭成员
+  bindinputjiating(res) {
+    this.setData({ jiating: res.detail.value })
+  },
+  // 父母
+  fumuChange(res) {
+    this.setData({ fumuIndex: res.detail.value })
+  },
+  // 兴趣
+  bindinputxingqu(res) {
+    this.setData({ xingqu: res.detail.value })
+  },
+  // 和谁住
+  zhusuChange(res) {
+    this.setData({ zhusuIndex: res.detail.value })
+  },
+  // 和谁住
+  bindinputzhusu(res) {
+    this.setData({ zhusu: res.detail.value })
   },
   // 注册
   compile(res) {
     var that = this;
-    if (that.data.xlIndex && that.data.userHeight && that.data.industry && that.data.xzIndex && that.data.fcIndex && (that.data.iv||that.data.phoneState) && that.data.headUrl) {
+    if (that.data.userHeight && that.data.industry && that.data.headUrl && that.data.address != "") {
       // 基本信息
       fn.http({
         param: {
           func: 'user.register',
           user_id: app.globalData.user_id,
-          // nickname: that.data.zcName,
           gender: that.data.sexIndex == 0 ? 1 : 2,
           year: that.data.ageData[that.data.age],
-          head: that.data.headUrl,
           height: that.data.userHeight,
           address: that.data.address,
           industry: that.data.industry,
-          // salary: that.data.xzIndex,
-          // touringcar: that.data.fcIndex,
+          head: that.data.headUrl,
         },
         success: function (res) {
           console.log('更改信息成功');
@@ -130,8 +178,7 @@ Page({
           educate: that.data.xlIndex,
           salary: that.data.xzIndex,
           touringcar: that.data.fcIndex,
-          iv: that.data.iv,
-          encryptedData:that.data.encryptedData
+          marriage_history: that.data.gwIndex
         },
         success: function (res) {
           // 用户信息
@@ -141,6 +188,22 @@ Page({
             title: '保存成功',
             icon: 'none'
           })
+        }
+      })
+      // 非必填信息
+      fn.http({
+        param: {
+          func: 'user.userdata',
+          user_id: app.globalData.user_id,
+          zodiac: that.data.shengxiao[that.data.shengxiaoIndex],
+          family: that.data.jiating,
+          parent: that.data.fumu[that.data.fumuIndex],
+          with_who: that.data.zhusu[that.data.zhusuIndex],
+          constellation: that.data.xingzuo[that.data.xingzuoIndex],
+          character: that.data.xinggeIndex?that.data.xingge[that.data.xinggeIndex]:'',
+          interest: that.data.xingqu,
+        },
+        success: function (res) {
         }
       })
     } else {
@@ -246,6 +309,7 @@ updateImg(res){
                 success: res => {
                   wx.hideLoading();
                   var res = JSON.parse(res.data).response;
+                  console.log(res)
                   that.setData({
                     uploadState: 1,
                     headUrl: res.file,
@@ -267,6 +331,14 @@ userMsg(res){
     param: { func: "user.me", user_id: app.globalData.user_id},
     success: function (res) {
       var userData = res.userinfo;
+      var xinggeIndex='';
+      var fumuIndex='';
+      var zhusuIndex = 0;
+      if (userData.character=='内向'){xinggeIndex=1}
+      if (userData.character == '外向') { xinggeIndex = 2 }
+      if (userData.parent == '母亲') { fumuIndex = 1 }
+      if (userData.parent == '父亲') { fumuIndex = 2 }
+      if (userData.with_who == '独居') { zhusuIndex = 1 }
       that.setData({
         userMessagesData: res.userinfo,
         sexIndex: userData.gender - 0 - 1,
@@ -280,8 +352,59 @@ userMsg(res){
         industry: userData.industry,
         xzIndex: userData.salary,
         fcIndex: userData.touringcar == 0 ? 1 : userData.touringcar,
-        phoneState: userData.phone?1:0
+        phoneState: userData.phone?1:0,
+        gwIndex: userData.marriage_history,//婚史
+        // shengxiao: userData.zodiac !='undefined' ? userData.zodiac:'无',
+        // xingzuo: (userData.constellation != 'undefined' || userData.constellation != null) ? userData.constellation : '无',
+        xinggeIndex: xinggeIndex == '' ? 0 : xinggeIndex,
+        jiating: (userData.family != 'undefined' && userData.family != null) ? userData.family : '无',
+        fumuIndex: fumuIndex == '' ? 0 : fumuIndex,
+        xingqu: (userData.interest != 'undefined' && userData.interest != null) ? userData.interest : '无',
+        zhusuIndex: zhusuIndex,
       })
+      var shengxiaoIndex;
+      var xingzuoIndex;
+      // 生肖星座
+      if (userData.zodiac != 'undefined'){
+        switch (userData.zodiac){
+          case '鼠': shengxiaoIndex=0; break;
+          case '牛': shengxiaoIndex = 1; break;
+          case '虎': shengxiaoIndex = 2; break;
+          case '兔': shengxiaoIndex = 3; break;
+          case '龙': shengxiaoIndex = 4; break;
+          case '蛇': shengxiaoIndex = 5; break;
+          case '马': shengxiaoIndex = 6; break;
+          case '羊': shengxiaoIndex = 7; break;
+          case '猴': shengxiaoIndex = 8; break;
+          case '鸡': shengxiaoIndex = 9; break;
+          case '狗': shengxiaoIndex = 10; break;
+          case '猪': shengxiaoIndex = 11; break;
+        }
+        that.setData({
+          shengxiaoIndex: shengxiaoIndex
+        })
+      }
+      // 生肖星座
+      if (userData.constellation != 'undefined') {
+        switch (userData.constellation) {
+          case '处女座': xingzuoIndex = 0; break;
+          case '狮子座': xingzuoIndex = 1; break;
+          case '双鱼座': xingzuoIndex = 2; break;
+          case '天蝎座': xingzuoIndex = 3; break;
+          case '摩羯座': xingzuoIndex = 4; break;
+          case '金牛座': xingzuoIndex = 5; break;
+          case '巨蟹座': xingzuoIndex = 6; break;
+          case '双子座': xingzuoIndex = 7; break;
+          case '天秤座': xingzuoIndex = 8; break;
+          case '水瓶座': xingzuoIndex = 9; break;
+          case '白羊座': xingzuoIndex = 10; break;
+          case '射手座': xingzuoIndex = 11; break;
+        }
+        that.setData({
+          xingzuoIndex: xingzuoIndex
+        })
+      }
+
       //省份数据
       var multiArray = [];
       var sheng = [];
@@ -305,6 +428,8 @@ userMsg(res){
           })
         }
       })
+      
+
     },
   })
 },

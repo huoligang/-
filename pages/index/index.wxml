@@ -4,10 +4,10 @@
 <image class='zhezhao' wx:if="{{zhezhao2}}" catchtap='closeAll'></image>
 <view class='header' style='height:{{height}};'>
   <!-- 在线 -->
-  <text class='topTitle' style='height:{{height2-statusBarHeight}}px;line-height:{{height2-statusBarHeight}}px;'>缘分对对碰</text>
+  <text class='topTitle' style='margin-top:{{mtHeader}};'>同城缘分</text>
 </view>
 <block wx:if="{{!is_loading}}">
-  <view class='section {{!bottomState?"":"overflowH"}}' style='padding-top:{{height}};'>
+  <view class='section {{!bottomState?"":"overflowH"}}' style='padding-top:{{height}};height:{{sectionH}}'>
     <!-- 第一步 -->
     <view class='oneBox' wx:if="{{tab==1}}" style='opacity:{{oneOpacity}}' catchtouchstart='oneCatch1' catchtouchmove='oneCatch2' catchtouchend='oneCatch3'>
       <image class='hddImg' src='/images/index11.png'></image>
@@ -221,14 +221,6 @@
 <!-- 注册信息弹窗 -->
 <view class='popS1Box' wx:if="{{popS1Box}}">
   <text class='popS1Text1' style='margin-bottom:20rpx;'>和TA聊天简单介绍下自己</text>
-  <!-- 性别 -->
-  <!-- <picker bindchange="bindPickerChange" value="{{sexIndex}}" range="{{sexData}}">
-    <view class='inputBox'>
-      <text class='text4'>性别</text>
-      <input type='text' class='input2' disabled='disabled' value='{{sexData[sexIndex]}}'></input>
-      <image class='test2Img' src='/images/test2.png'></image>
-    </view>
-  </picker> -->
   <!-- 职业 -->
   <view class='inputBox'>
     <text class='text4'>职业</text>
@@ -267,14 +259,6 @@
       <image class='test2Img' src='/images/test2.png'></image>
     </view>
   </picker>
-  <!-- <view class='inputBox'>
-    <text class='text4'>姓名</text>
-    <input type='text' class='input2' bindinput="bindinputName"></input>
-  </view> -->
-  <!-- <view class='inputBox'>
-    <text class='text4'>职业</text>
-    <input type='text' class='input2' bindinput='bindinputIndustry'></input>
-  </view> -->
   <picker bindchange="xzChange" value="{{xzIndex}}" range="{{xz}}">
     <view class='inputBox'>
       <text class='text4'>月薪</text>
@@ -309,7 +293,7 @@
   <text class='xrPopText1'>{{xrText.nickname}}</text>
   <text class='xrText'>进入了您的服务区</text>
   <text class='xrPopText1'>快去聊聊赚牵线红包吧</text>
-  <button class='btn-reset yqBtn' catchtap='toLiao'>和TA聊聊</button>
+  <button class='btn-reset yqBtn' catchtap='toLiao' data-xr='1'>和TA聊聊</button>
 </view>
 <!-- 添加故事弹窗 -->
 <view class='messagePop' wx:if="{{addmubanState}}" style='height:600rpx;margin-top:-300rpx;background:#ffffff;'>

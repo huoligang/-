@@ -12,6 +12,9 @@
 }
 page{
   background: #f87c56;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 /* .content{
   display: flex;
@@ -164,7 +167,8 @@ page{
 .section{
   display: flex;
   /* width: 100%; */
-  height: 100vh;
+  /* flex: 1; */
+  /* height: 100%; */
   /* overflow: hidden; */
   z-index: 1;
   box-sizing: border-box;
@@ -457,14 +461,6 @@ page{
   position: absolute;
   left: 50%;
   margin-left: -150rpx;
-}
-.topTitle{
-  display: block;
-  margin-top: 20px;
-  font-size: 34rpx;
-  color: #000000;
-  margin-left: 27rpx;
-  font-weight: bold;
 }
 .messagePop{
   width: 700rpx;

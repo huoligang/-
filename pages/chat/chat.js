@@ -31,16 +31,30 @@ Page({
     giftIndex:0,
     bmf:null,
     isLoad:false,
-    ageIndex: 8,
-    age: 1992,
-    userHeight: 168,
+    ageIndex: '',
+    age: '',
+    userHeight: '',
     multiIndex: 0,
     uploadState:0,
-    xz: ['收入', '1000~5000', '5000~10000', '10000~20000', '20000以上'],
+    xz: ['收入', '2000~4000', '4000~6000', '6000~10000', '10000~15000', '15000以上'],
     xzIndex: 0,
     fc: ['无车无房', '无车有房', '有车无房', '有车有房'],
     fcIndex: 0,
-    xl: ['学历', '高中及以下', '专科', '本科', '硕士', '博士及以下'],
+    xl: ['学历', '专科以下', '专科', '本科', '硕士', '博士及以下'],
+    xlIndex:0,
+    gw: ['过往', '未婚', '离异'],
+    gwIndex: 0,
+    address:"",
+    zhusu: ['父母', '独居'],
+    zhusuIndex: 0,
+    shengxiao: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+    shengxiaoIndex: 0,
+    xingzuo: ['处女座', '狮子座', '双鱼座', '天蝎座', '摩羯座', '金牛座', '巨蟹座', '双子座', '天秤座', '水瓶座', '白羊座', '射手座'],
+    xingzuoIndex: 0,
+    xingge: ['选择性格', '内向', '外向'],
+    xinggeIndex: 0,
+    fumu: ['双全', '母亲', '父亲'],
+    fumuIndex: 0,
   },
 
   /**
@@ -58,18 +72,9 @@ Page({
     var sis = wx.getSystemInfoSync();
     // 自定义导航栏高度
     let height;
-    height = 64
-    if (sis.model == 'iPhone X') {
-      height = 88
-    }
-    if (sis.platform == 'android') {
-      height = 72
-    }
+    height = sis.statusBarHeight + 44;
     that.setData({
       height: height + 'px',
-      height2: height,
-      _h: sis.screenHeight - height + 'px',
-      _w: sis.screenWidth
     })
     app.globalData.headerHeight = height + 'px';
     app.globalData.headerHeight2 = height;
@@ -121,7 +126,7 @@ Page({
       console.log(userData)
       // 获取用户消息模板
       that.getTempletList();
-      if (that.data.inType) {
+      if (that.data.inType==1) {
         that.getPLP();
       } else {
         // 获取最后几条信息
@@ -157,6 +162,7 @@ Page({
     fn.http({
       param: { func: "chat.getTempletList", user_id: that.data.to_user_id },
       success: res => {
+        if (!res){return false}
         console.log(res[0])
         var plpData = {};
         plpData.from_user_id = that.data.to_user_id;
@@ -181,7 +187,10 @@ Page({
   // 关闭弹窗
   close(res){
     this.setData({
-      giftState:1
+      giftState:1,
+      popS1Box:false,
+      popS2Box:false,
+      zhezhao:false
     })
   },
   // 去除相同
@@ -324,7 +333,7 @@ Page({
       fn.http({
         param: { func: "chat.chat", user_id: app.globalData.user_id, to_user_id: that.data.to_user_id, content: chatValue },
         success: function (res) {
-          if (res.code == "-100018" || res.code == "-100021" || res.code == "-100030"){
+          if (res.code == "-100018" || res.code == "-100021" || res.code == "-100030" || res.code == "-100025"){
             wx.showModal({
               title: '提示',
               content: res.msg,
@@ -613,9 +622,16 @@ Page({
   // 检测用户是否填写信息
   checkUserMsg(res){
     var that = this;
-    if (!app.globalData.height) {
+    if (!app.globalData.userMyself.phone) {
       that.setData({
         zhezhao: true,
+        popS3Box: true
+        // popS1Box: true
+      })
+    }else if (!app.globalData.height) {
+      that.setData({
+        zhezhao: true,
+        // popS3Box: true
         popS1Box: true
       })
     } else if (!app.globalData.touringcar){
@@ -634,7 +650,7 @@ Page({
     var multiArray = [];
     var sheng = [];
     fn.http({
-      param: { func: 'user.getprovince' },
+      param: { func: 'user.getprovince'},
       success: function (res) {
         for (var i in res.data) {
           multiArray.push(res.data[i].name);
@@ -658,6 +674,7 @@ Page({
     // 截屏事件
     wx.onUserCaptureScreen(function (res) {
       if (app.globalData.is_at_chat){
+        return false
         fn.http({
           param: { func: "user.prohibitSeal", user_id: app.globalData.user_id },
           success: function (res) {
@@ -753,6 +770,20 @@ Page({
         default:
           console.log("执行")
           break;
+      }
+    })
+    // 获取位置
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        app.globalData.latitude = res.latitude;
+        app.globalData.longitude = res.longitude;
+        that.setData({
+          lat: res.latitude,
+          lon: res.longitude
+        })
+      },
+      fail: function (res) {
       }
     })
   },
@@ -891,7 +922,7 @@ Page({
       success(res) {
         if (res.confirm) {
           fn.http({
-            param: { func: "user.queryLocation", user_id: app.globalData.user_id, query_user_id: that.data.to_user_id, lat: app.globalData.latitude, lon: app.globalData.longitude },
+            param: { func: "user.queryLocation", user_id: app.globalData.user_id, query_user_id: that.data.to_user_id, lat: that.data.lat, lon: that.data.lon },
             success: function (res) {
               console.log(res)
               if (res.code == "-100019") {
@@ -1169,18 +1200,64 @@ Page({
     this.setData({ fcIndex: res.detail.value })
     console.log(res.detail.value)
   },
+  // 过往
+  gwChange(res) {
+    this.setData({ gwIndex: res.detail.value })
+    console.log(res.detail.value)
+  },
+  // 非必填项
+  // 生肖
+  shengxiaoChange(res) {
+    this.setData({ shengxiaoIndex: res.detail.value })
+  },
+  // 星座
+  xingzuoChange(res) {
+    this.setData({ xingzuoIndex: res.detail.value })
+  },
+  // 性格
+  xinggeChange(res) {
+    this.setData({ xinggeIndex: res.detail.value })
+  },
+  // 家庭成员
+  bindinputjiating(res) {
+    this.setData({ jiating: res.detail.value })
+  },
+  // 父母
+  fumuChange(res) {
+    this.setData({ fumuIndex: res.detail.value })
+  },
+  // 兴趣
+  bindinputxingqu(res) {
+    this.setData({ xingqu: res.detail.value })
+  },
+  // 和谁住
+  zhusuChange(res) {
+    this.setData({ zhusuIndex: res.detail.value })
+  },
   // 获取手机号
   bindgetphonenumber(e) {
     var that = this;
-    that.setData({
-      iv: e.detail.iv,
-      encryptedData: e.detail.encryptedData
-    })
+    if (e.detail.iv){
+      fn.http({
+        param: {
+          func: 'user.registerphone',
+          user_id: app.globalData.user_id,
+          iv: e.detail.iv,
+          encryptedData: e.detail.encryptedData,
+        },
+        success: function (res) {
+          that.setData({
+            popS3Box: false,
+            popS1Box: true
+          })
+        }
+      })
+    }
   },
   // 基本信息注册
   toTab3(res) {
     var that = this;
-    if (that.data.userHeight && that.data.industry && that.data.iv) {
+    if (that.data.userHeight && that.data.industry && that.data.headUrl && that.data.address!="") {
       fn.http({
         param: {
           func: 'user.register',
@@ -1189,6 +1266,7 @@ Page({
           year: that.data.age,
           height: that.data.userHeight,
           address: that.data.address,
+          head: that.data.headUrl,
           iv: that.data.iv,
           encryptedData: that.data.encryptedData
         },
@@ -1211,7 +1289,8 @@ Page({
   toTab4(res) {
     var that = this;
     console.log("123")
-    if (that.data.xlIndex != 0 && that.data.xzIndex != 0 && that.data.headUrl) {
+    // if (that.data.xlIndex != 0 && that.data.xzIndex != 0  && that.data.gwIndex!=0) {
+      
       fn.http({
         param: {
           func: 'user.userInfoRegister',
@@ -1219,7 +1298,7 @@ Page({
           educate: that.data.xlIndex,
           salary: that.data.xzIndex,
           touringcar: that.data.fcIndex - 0 + 1,
-          head: that.data.headUrl,
+          marriage_history: that.data.gwIndex
         },
         success: function (res) {
           that.setData({
@@ -1228,25 +1307,41 @@ Page({
           })
         }
       })
-    } else {
-      wx.showModal({
-        title: '提示',
-        content: '请完善您的信息',
-        showCancel: false
+      // 非必填信息
+      fn.http({
+        param: {
+          func: 'user.userdata',
+          user_id: app.globalData.user_id,
+          zodiac: that.data.shengxiao[that.data.shengxiaoIndex],
+          family: that.data.jiating,
+          parent: that.data.fumu[that.data.fumuIndex],
+          with_who: that.data.zhusu[that.data.zhusuIndex],
+          constellation: that.data.xingzuo[that.data.xingzuoIndex],
+          character: that.data.xinggeIndex ? that.data.xingge[that.data.xinggeIndex] : '',
+          interest: that.data.xingqu,
+        },
+        success: function (res) {
+        }
       })
-    }
+    // } else {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '请完善您的信息',
+    //     showCancel: false
+    //   })
+    // }
   },
   uploadImg(res){
     var that = this;
     that.setData({
-      popS2Box:false,
+      popS1Box:false,
       popUpLoadImg:true
     })
   },
   // 图片选择弹窗关闭
   closePopUpLoad(res){
     this.setData({
-      popS2Box: true,
+      popS1Box: true,
       popUpLoadImg: false
     })
   },

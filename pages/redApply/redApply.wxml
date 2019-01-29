@@ -1,5 +1,5 @@
 <view class='header' style='height:{{headerHeight}};'>
-  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+  <view class='topTitle' style='margin-top:{{mtHeader}};' catchtap='backMine'>
     <image class='jianImg' src='/images/jian.png'></image>
     <text>返回</text>
   </view>

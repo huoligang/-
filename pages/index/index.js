@@ -59,50 +59,43 @@ Page({
     animationData: {},
     animationData2: {},
     animationData3: {},
-    twoBox3State: true,
-    twoBox4State: true,
+    twoBox3State: false,
+    twoBox4State: false,
     animationIndex: 1
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // return false
-    console.log(options)
+    console.log(options);
     wx.showLoading({
       title: '加载中',
     })
     var that = this;
     var friend_u_id = options.friend_u_id;
-    var tuiguang_id = options.friend_user_id;
+    var tuiguang_id = options.recommend_id ? options.recommend_id : options.friend_user_id ? options.friend_user_id:"";
     const {
       msgData
     } = that.data;
     var sis = wx.getSystemInfoSync();
-    console.log(sis)
-    console.log("上面是手机型号信息")
     // 自定义导航栏高度
     let height;
-    height = 64
-    if (sis.model == 'iPhone X') {
-      height = 88
-    }
+    height = sis.statusBarHeight + 44;
     if (sis.platform == 'android') {
-      height = 72;
-    } else if (sis.platform == 'ios') {
+      app.globalData.isIos = false
+    }
+    if (sis.platform == 'ios') {
       app.globalData.isIos = true
     } else {
       app.globalData.isIos = false
     }
     that.setData({
       height: height + 'px',
-      height2: height,
-      _h: sis.screenHeight - height + 'px',
-      _w: sis.screenWidth,
-      statusBarHeight: sis.statusBarHeight,
-      testHeight: sis.screenHeight - sis.windowHeight + sis.statusBarHeight
+      mtHeader: sis.statusBarHeight + 'px',
+      sectionH: sis.windowHeight + 'px'
     })
     app.globalData.headerHeight = height + 'px';
+    app.globalData.mtHeader = sis.statusBarHeight + 'px';
     app.globalData.headerHeight2 = height;
     app.globalData.allHeight = height - sis.statusBarHeight + 'px';
     app.globalData.statusBarHeight = sis.statusBarHeight;
@@ -401,7 +394,13 @@ Page({
       }, function() {
         var server = app.globalData.server;
         var server2 = server.splice(0, 1);
-        app.globalData.server = server
+        app.globalData.server = server;
+        if (app.globalData.server.length==1){//最后一条消息删除
+          fn.http({
+            param: {func: "user.read_server",user_id: app.globalData.user_id},
+            success: function (res) {}
+          })
+        }
       })
     }
   },
@@ -418,8 +417,11 @@ Page({
   // 和他聊聊
   toLiao(res) {
     var that = this;
-    // var msglistData = that.data.xrText;
-    var msglistData = res;
+    if (res.currentTarget){
+      var msglistData = that.data.xrText;
+    }else{
+      var msglistData = res;
+    }
     var msglist = {};
     msglist.user_id = msglistData.user_id;
     msglist.gender = msglistData.gender;
@@ -452,7 +454,7 @@ Page({
         })
       }
     })
-    
+
   },
   oneCatch3(res) {
     console.log(res)
@@ -473,30 +475,12 @@ Page({
           that.setData({
             tab: 2
           }, function() {
-            // return false
-            const animation = wx.createAnimation({
-              duration: 1000,
-              timingFunction: 'ease',
-            })
-            const animation2 = wx.createAnimation({
-              duration: 1000,
-              timingFunction: 'ease',
-            })
-            const animation3 = wx.createAnimation({
-              duration: 1000,
-              timingFunction: 'ease',
-            })
-            const animation4 = wx.createAnimation({
-              duration: 500,
-              timingFunction: 'ease',
-            })
+            const animation = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+            const animation2 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+            const animation3 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
             animation.opacity(1).step()
             animation2.translateX('100px').step()
             animation3.translateX('-100px').step()
-            animation4.translateX('420px').step()
-            animation4.translateX('400px').step({
-              duration: 500
-            })
             that.setData({
               animationData2: animation2.export(),
             })
@@ -508,14 +492,11 @@ Page({
             setTimeout(function() {
               that.setData({
                 animationData: animation.export(),
-                // animationData4: animation4.export()
               }, function() {})
             }, 1600)
             setTimeout(function() {
-              that.setData({
-                // animationData: animation.export(),
-                animationData4: animation4.export()
-              }, function() {})
+              // 用户基本信息动画
+              that.userMsgAn();
             }, 2400)
 
           })
@@ -533,34 +514,17 @@ Page({
     if (that.data.tab == 2) {
       that.setData({
         tab: 2,
-        twoBox3State: true,
+        twoBox3State: false,
         twoBox4State: false,
-        twoBox5State: false,
+        twoBox5State: true,
         twoBox6State: false
       }, function() {
-        const animation = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        const animation2 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        const animation3 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        const animation4 = wx.createAnimation({
-          duration: 500,
-          timingFunction: 'ease',
-        })
+        const animation = wx.createAnimation({ duration: 1000,timingFunction: 'ease'})
+        const animation2 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+        const animation3 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
         animation.opacity(1).step()
         animation2.translateX('100px').step()
         animation3.translateX('-100px').step()
-        animation4.translateX('420px').step()
-        animation4.translateX('400px').step({
-          duration: 500
-        })
         that.setData({
           animationData2: animation2.export(),
         })
@@ -575,255 +539,9 @@ Page({
           }, function() {})
         }, 1600)
         setTimeout(function() {
-          that.setData({
-            animationData4: animation4.export()
-          }, function() {})
+          that.userMsgAn();
         }, 2400)
       })
-    }
-  },
-  // 清空还原动画、重置动画
-  resetAnimation(res) {
-    var that = this;
-    console.log(that.data.tab)
-    console.log(that.data.animationIndex)
-    if (that.data.tab == 1) {
-      that.setData({
-        tab: 1,
-        animationIndex: 1
-      })
-    } else if (that.data.tab == 2 && that.data.twoBox3State) {
-      that.setData({
-        animationIndex: 1
-      })
-      const animation = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation2 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation3 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation4 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      animation.opacity(0).step()
-      animation2.translateX('-100px').step()
-      animation3.translateX('100px').step()
-      animation4.translateX('0px').step()
-      that.setData({
-        tab: 2,
-        twoBox6State: false,
-        twoBox5State: false,
-        twoBox4State: false,
-        animationData: animation,
-        animationData2: animation2,
-        animationData3: animation3,
-        animationData4: animation4
-      })
-      setTimeout(function() {
-        that.againAnimation();
-      }, 1000)
-    } else if (that.data.tab == 2 && that.data.twoBox4State) {
-      that.setData({
-        animationIndex: 1
-      })
-      const animation = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation2 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation3 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation5 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      animation.opacity(0).step()
-      animation2.translateX('-100px').step()
-      animation3.translateX('100px').step()
-      animation5.translateX('400px').step()
-      that.setData({
-        tab: 2,
-        twoBox6State: false,
-        twoBox5State: false,
-        twoBox4State: false,
-        animationData: animation,
-        animationData2: animation2,
-        animationData3: animation3,
-        animationData5: animation5
-      })
-      setTimeout(function() {
-        that.againAnimation();
-      }, 1000)
-    } else if (that.data.tab == 2 && that.data.twoBox5State && that.data.animationIndex == 3) {
-      that.setData({
-        animationIndex: 1
-      })
-      console.log(that.data.animationIndex)
-      const animation = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation2 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation3 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation6 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation7 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation8 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation9 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation10 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation11 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation12 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation13 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation14 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation15 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-
-      animation.opacity(0).step()
-      animation2.translateX('-100px').step()
-      animation3.translateX('100px').step()
-      // 左边角色基本信息还原
-      animation7.translateX('-150px').step();
-      animation6.translateX('-150px').step();
-      animation8.translateX('-150px').step();
-      animation9.translateX('-150px').step();
-      animation10.translateX('-150px').step();
-      // 右边角色基本信息还原
-      animation11.translateX('150px').step();
-      animation12.translateX('150px').step();
-      animation13.translateX('150px').step();
-      animation14.translateX('150px').step();
-      animation15.translateX('150px').step();
-      that.setData({
-        tab: 2,
-        twoBox6State: false,
-        twoBox5State: false,
-        twoBox4State: false,
-        animationData: animation,
-        animationData2: animation2,
-        animationData3: animation3,
-        animationData6: animation6,
-        animationData7: animation7,
-        animationData8: animation8,
-        animationData9: animation9,
-        animationData10: animation10,
-        animationData11: animation11,
-        animationData12: animation12,
-        animationData13: animation13,
-        animationData14: animation14,
-        animationData15: animation15,
-      })
-      setTimeout(function() {
-        that.againAnimation();
-      }, 1000)
-    } else if (that.data.tab == 2 && that.data.twoBox6State && that.data.animationIndex == 4) {
-      that.setData({
-        animationIndex: 1
-      })
-      console.log(that.data.animationIndex)
-      const animation = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation2 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation3 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation5 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation16 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation17 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation18 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-      const animation19 = wx.createAnimation({
-        duration: 100,
-        timingFunction: 'ease',
-      })
-
-      animation.opacity(0).step()
-      animation2.translateX('-100px').step()
-      animation3.translateX('100px').step()
-      animation5.translateX('400px').step();
-      animation16.translateX('-200px').step();
-      animation17.translateX('200px').step();
-      animation18.translateX('80px').opacity(0).step();
-      animation19.translateX('-80px').opacity(0).step();
-      that.setData({
-        tab: 2,
-        twoBox6State: false,
-        twoBox5State: false,
-        twoBox4State: false,
-        animationData: animation,
-        animationData2: animation2,
-        animationData3: animation3,
-        animationData5: animation5,
-        animationData16: animation16,
-        animationData17: animation17,
-        animationData18: animation18,
-        animationData19: animation19,
-      })
-      setTimeout(function() {
-        that.againAnimation();
-      }, 1000)
     }
   },
   // 第二部分事件
@@ -833,9 +551,9 @@ Page({
       twoClientY: res.touches[0].clientY,
       twoClientX: res.touches[0].clientX
     })
-    if (that.data.twoBox6State && res.touches[0].clientX<100){
+    if (that.data.twoBox6State && res.touches[0].clientX < 100) {
       that.toLiao(that.data.msgData[0])
-    } else if (that.data.twoBox6State && res.touches[0].clientX > 270){
+    } else if (that.data.twoBox6State && res.touches[0].clientX > 270) {
       that.toLiao(that.data.msgData[1])
     }
   },
@@ -845,6 +563,134 @@ Page({
     this.setData({
       twoOpacity: 1 - ((that.data.twoClientY - clientY) / 100)
     })
+  },
+  // 用户基本信息动画
+  userMsgAn(res) {
+    var that = this;
+    that.setData({
+      twoBox4State: false,
+      twoBox5State: true,
+      animationIndex: 2
+    });
+    // 用户基本信息动画
+    const animation6 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+    const animation11 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+    animation6.translateX('150px').step();
+    animation11.translateX('-150px').step();
+    that.setData({
+      animationData6: animation6.export(),
+      animationData11: animation11.export(),
+    })
+    // 基本信息年龄动画
+    setTimeout(function() {
+      const animation7 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation12 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation7.translateX('150px').step();
+      animation12.translateX('-150px').step();
+      that.setData({
+        animationData7: animation7.export(),
+        animationData12: animation12.export(),
+      })
+    }, 200)
+    // 基本信息身高动画
+    setTimeout(function() {
+      const animation8 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation13 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation8.translateX('150px').step();
+      animation13.translateX('-150px').step();
+      that.setData({
+        animationData8: animation8.export(),
+        animationData13: animation13.export(),
+      })
+    }, 400)
+    // 基本信息职业动画
+    setTimeout(function() {
+      const animation9 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation14 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation9.translateX('150px').step();
+      animation14.translateX('-150px').step();
+      that.setData({
+        animationData9: animation9.export(),
+        animationData14: animation14.export(),
+      })
+    }, 600)
+    // 基本信息地址动画
+    setTimeout(function() {
+      const animation10 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation15 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation10.translateX('150px').step();
+      animation15.translateX('-150px').step();
+      that.setData({
+        animationData10: animation10.export(),
+        animationData15: animation15.export(),
+      })
+    }, 800)
+    // }, 500)
+  },
+  //清空用户基本信息动画
+  userMsgAn2(res) {
+    var that = this;
+    // 用户基本信息动画
+    const animation6 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+    const animation11 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+    animation6.translateX('-100px').step();
+    animation11.translateX('100px').step();
+    that.setData({
+      animationData6: animation6.export(),
+      animationData11: animation11.export(),
+    })
+    // 基本信息年龄动画
+    setTimeout(function() {
+      const animation7 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation12 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation7.translateX('-150px').step();
+      animation12.translateX('150px').step();
+      that.setData({
+        animationData7: animation7.export(),
+        animationData12: animation12.export(),
+      })
+    }, 100)
+    // 基本信息身高动画
+    setTimeout(function() {
+      const animation8 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation13 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation8.translateX('-150px').step();
+      animation13.translateX('150px').step();
+      that.setData({
+        animationData8: animation8.export(),
+        animationData13: animation13.export(),
+      })
+    }, 200)
+    // 基本信息职业动画
+    setTimeout(function() {
+      const animation9 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation14 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation9.translateX('-150px').step();
+      animation14.translateX('150px').step();
+      that.setData({
+        animationData9: animation9.export(),
+        animationData14: animation14.export(),
+      })
+    }, 300)
+    // 基本信息地址动画
+    setTimeout(function() {
+      const animation10 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation15 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      animation10.translateX('-150px').step();
+      animation15.translateX('150px').step();
+      that.setData({
+        animationData10: animation10.export(),
+        animationData15: animation15.export(),
+      })
+    }, 400)
+    // 基本信息消失动画完毕隐藏基本消息内容
+    setTimeout(function() {
+      that.setData({
+        twoBox5State:false,
+        twoBox3State: true,
+        animationIndex: 2
+      })
+    }, 1400)
   },
   // 滑动
   twoCatch3(res) {
@@ -864,13 +710,27 @@ Page({
     var clientY = res.changedTouches[0].clientY;
     var clientX = res.changedTouches[0].clientX;
     if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 1) {
-      const animation4 = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'ease',
-      })
-      animation4.translateX('0px').step({
-        duration: 500
-      })
+      // 用户基本信息动画
+      that.userMsgAn();
+    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 2) {
+      that.userMsgAn2();//用户基本信息撤退动画
+      setTimeout(function() {
+        const animation4 = wx.createAnimation({
+          duration: 500,
+          timingFunction: 'ease',
+        })
+        animation4.translateX('420px').step()
+        animation4.translateX('400px').step({
+          duration: 500
+        })
+        that.setData({
+          animationData4: animation4.export(),
+          animationIndex: 3
+        })
+      }, 1400)
+    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 3) {
+      const animation4 = wx.createAnimation({ duration: 500,timingFunction: 'ease'})
+      animation4.translateX('0px').step({duration: 500})
       that.setData({
         animationData4: animation4.export()
       }, function() {
@@ -880,297 +740,67 @@ Page({
             twoBox4State: true
           })
           // 右边角色故事动画开始
-          const animation5 = wx.createAnimation({
-            duration: 500,
-            timingFunction: 'ease',
-          })
+          const animation5 = wx.createAnimation({duration: 500,timingFunction: 'ease',})
           animation5.translateX('-420px').step()
-          animation5.translateX('-400px').step({
-            duration: 500
-          })
+          animation5.translateX('-400px').step({duration: 500})
           that.setData({
             animationData5: animation5.export(),
-            animationIndex: 2
+            animationIndex: 4
           })
         }, 500)
       })
-    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 2) {
-      // 第二次上划，右边角色故事消失
-      const animation5 = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'ease',
-      })
+      return false
+    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 4) {
+      // 右边角色故事消失
+      var animation5 = wx.createAnimation({duration: 500,timingFunction: 'ease',})
       animation5.translateX('400px').step()
       that.setData({
         animationData5: animation5.export(),
       })
-      setTimeout(function() {
+      // return false
+      setTimeout(function () {
         that.setData({
-          twoBox4State: false,
-          twoBox5State: true,
-          animationIndex: 3
+          twoBox4State:false,
+          twoBox6State:true
         });
-        // 用户基本信息动画
-        const animation6 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        const animation11 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        animation6.translateX('150px').step();
-        animation11.translateX('-150px').step();
+        // 用户图片动画
+        const animation16 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+        const animation17 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+        animation16.translateX('200px').step();
+        animation17.translateX('-200px').step();
         that.setData({
-          animationData6: animation6.export(),
-          animationData11: animation11.export(),
+          animationData16: animation16.export(),
+          animationData17: animation17.export(),
+          
         })
-        // 基本信息年龄动画
-        setTimeout(function() {
-          const animation7 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation12 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation7.translateX('150px').step();
-          animation12.translateX('-150px').step();
-          that.setData({
-            animationData7: animation7.export(),
-            animationData12: animation12.export(),
-          })
-        }, 200)
-        // 基本信息身高动画
-        setTimeout(function() {
-          const animation8 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation13 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation8.translateX('150px').step();
-          animation13.translateX('-150px').step();
-          that.setData({
-            animationData8: animation8.export(),
-            animationData13: animation13.export(),
-          })
-        }, 400)
-        // 基本信息职业动画
-        setTimeout(function() {
-          const animation9 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation14 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation9.translateX('150px').step();
-          animation14.translateX('-150px').step();
-          that.setData({
-            animationData9: animation9.export(),
-            animationData14: animation14.export(),
-          })
-        }, 600)
-        // 基本信息地址动画
-        setTimeout(function() {
-          const animation10 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation15 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation10.translateX('150px').step();
-          animation15.translateX('-150px').step();
-          that.setData({
-            animationData10: animation10.export(),
-            animationData15: animation15.export(),
-          })
-        }, 800)
       }, 500)
-    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 3) {
-      // 右边角色故事消失
-      const animation5 = wx.createAnimation({
-        duration: 500,
-        timingFunction: 'ease',
-      })
-      animation5.translateX('-400px').step()
-      that.setData({
-        animationData5: animation5.export(),
-      })
-      setTimeout(function() {
+      // 图片显示完毕左右按钮动画
+      setTimeout(function () {
         that.setData({
-          animationIndex: 4
-        });
-        // 用户基本信息动画
-        const animation6 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
+          zyjtState: true
         })
-        const animation11 = wx.createAnimation({
-          duration: 1000,
-          timingFunction: 'ease',
-        })
-        animation6.translateX('-100px').step();
-        animation11.translateX('100px').step();
+        // 用户图片动画
+        const animation18 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+        const animation19 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+        animation18.translateX('-80px').opacity(1).step();
+        animation19.translateX('80px').opacity(1).step();
         that.setData({
-          animationData6: animation6.export(),
-          animationData11: animation11.export(),
+          animationData18: animation18.export(),
+          animationData19: animation19.export(),
+          animationIndex: 5
         })
-        // 基本信息年龄动画
-        setTimeout(function() {
-          const animation7 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation12 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation7.translateX('-150px').step();
-          animation12.translateX('150px').step();
-          that.setData({
-            animationData7: animation7.export(),
-            animationData12: animation12.export(),
-          })
-        }, 100)
-        // 基本信息身高动画
-        setTimeout(function() {
-          const animation8 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation13 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation8.translateX('-150px').step();
-          animation13.translateX('150px').step();
-          that.setData({
-            animationData8: animation8.export(),
-            animationData13: animation13.export(),
-          })
-        }, 200)
-        // 基本信息职业动画
-        setTimeout(function() {
-          const animation9 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation14 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation9.translateX('-150px').step();
-          animation14.translateX('150px').step();
-          that.setData({
-            animationData9: animation9.export(),
-            animationData14: animation14.export(),
-          })
-        }, 300)
-        // 基本信息地址动画
-        setTimeout(function() {
-          const animation10 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation15 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation10.translateX('-150px').step();
-          animation15.translateX('150px').step();
-          that.setData({
-            animationData10: animation10.export(),
-            animationData15: animation15.export(),
-          })
-        }, 400)
-        // 基本信息消失动画完毕隐藏基本消息内容
-        setTimeout(function() {
-          that.setData({
-            twoBox5State: false,
-            twoBox6State: true,
-            animationIndex: 4
-          })
-          // 用户图片动画
-          const animation16 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation17 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation16.translateX('200px').step();
-          animation17.translateX('-200px').step();
-          that.setData({
-            animationData16: animation16.export(),
-            animationData17: animation17.export(),
-          })
-        }, 900)
-        // 图片显示完毕左右按钮动画
-        setTimeout(function() {
-          that.setData({
-            zyjtState: true
-          })
-          // 用户图片动画
-          const animation18 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          const animation19 = wx.createAnimation({
-            duration: 1000,
-            timingFunction: 'ease',
-          })
-          animation18.translateX('-80px').opacity(1).step();
-          animation19.translateX('80px').opacity(1).step();
-          that.setData({
-            animationData18: animation18.export(),
-            animationData19: animation19.export(),
-          })
-        }, 2300)
-      }, 500)
-    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 4) {
+      }, 2300)
+    } else if (1 - ((that.data.twoClientY - clientY) / 50) <= 0 && that.data.animationIndex == 5){
       that.onPullDownRefresh();
       console.log(that.data.animationIndex)
-      const animation = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation2 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation3 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation5 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation16 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation17 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation18 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
-      const animation19 = wx.createAnimation({
-        duration: 1000,
-        timingFunction: 'ease',
-      })
+      const animation = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation2 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation3 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation5 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation16 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation17 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation18 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
+      const animation19 = wx.createAnimation({ duration: 1000, timingFunction: 'ease' })
       animation.opacity(0).step()
       animation2.translateX('-100px').step()
       animation3.translateX('100px').step()
@@ -1183,7 +813,7 @@ Page({
         tab: 2,
         animationIndex: 1,
         twoBox6State: false,
-        twoBox5State: false,
+        twoBox5State: true,
         twoBox4State: false,
         animationData: animation,
         animationData2: animation2,
@@ -1194,7 +824,8 @@ Page({
         animationData18: animation18,
         animationData19: animation19,
       })
-    } else if (that.data.twoBox6State) {
+    }
+     else if (that.data.twoBox6State) {
       if (that.data.twoClientX - clientX < -50) {
         that.toLiao(that.data.msgData[1])
       } else if (that.data.twoClientX - clientX > 50) {
@@ -1202,7 +833,7 @@ Page({
       }
     }
   },
-  clickBoxL(res){
+  clickBoxL(res) {
     var that = this;
     console.log("66666")
     that.toLiao(that.data.msgData[0])
@@ -1216,11 +847,10 @@ Page({
    */
   onShow: function() {
     var that = this;
+    // that.getSjStory();
     that.setData({
       ifUpto: true
     })
-    // that.yqPop();
-    // that.closeAll();
     app.globalData.is_at_chat = false;
     if (app.globalData.isUserId) {
       // 获取地理位置
@@ -1262,12 +892,6 @@ Page({
         })
       }
     })
-
-    // that.getLocation();
-    // 刷新vip
-    // setTimeout(function(){
-    //   that.is_vip();
-    // },1000*60*2)
   },
   // 获取地理位置
   getLocation: function(res) {
@@ -1298,6 +922,7 @@ Page({
               city: res.city,
               zhezhao: false
             })
+            
           }
         })
       },
@@ -1313,6 +938,7 @@ Page({
       }
     })
   },
+
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -1326,66 +952,17 @@ Page({
   onUnload: function() {
 
   },
-  // 是否是新用户
-  checkIsNew(res) {
-    var that = this;
-    wx.getStorage({
-      key: 'is_new',
-      success(res) {
-        if (res.data) {
-          that.getSjStory();
-          that.setData({
-            aqxyState: true
-          })
-        }
-      }
-    })
-  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
     var that = this;
-    // console.log(that.data.tab)
-    // if (that.data.tab == 1) {
-    //   var param = { func: "chat.getNowTempletList" }
-    // } else {
-    //   var param = { func: "chat.getNowTempletList", city: that.data.city }
-    // }
     that.setData({
       gsPage: that.data.gsPage + 1,
       xiala: true
     }, function() {
       that.getIndexData();
-      // wx.reLaunch({
-      //   url: '../index/index',
-      // })
     })
-    return false
-    // that.data.getIndexData();
-    fn.http({
-      param: param,
-      success: function(res) {
-        var newData = res;
-        var oldData = that.data.msgData;
-        var data = that.array_diff(newData, oldData); //去重后的新数组
-        that.setData({
-          msgData: data.concat(oldData)
-        })
-        wx.stopPullDownRefresh(); //停止页面刷新
-      }
-    })
-  },
-  array_diff: function(a, b) {
-    for (var i = 0; i < b.length; i++) {
-      for (var j = 0; j < a.length; j++) {
-        if (a[j].m_id == b[i].m_id) {
-          a.splice(j, 1);
-          j = j - 1;
-        }
-      }
-    }
-    return a;
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -1408,18 +985,9 @@ Page({
           content: '当前微信版本过低，暂无法使用该功能，请升级后重试。'
         })
       }
-      // wx.pageScrollTo({
-      //   scrollTop: 0
-      // })
     })
     return false
 
-  },
-  bindscrolltolowe(res) {
-
-  },
-  bindscrolltoupper(res) {
-    console.log("出顶了")
   },
   /**
    * 用户点击右上角分享
@@ -1431,44 +999,13 @@ Page({
     })
     return {
       title: app.globalData.shareData.share_msg,
-      path: '/pages/index/index?friend_u_id=' + app.globalData.user_id,
+      path: '/pages/red/red?friend_u_id=' + app.globalData.user_id,
       imageUrl: app.globalData.shareData.share_img,
       success: function(res) {
         console.log(res)
       }
     }
     return false
-    if (res.from == "button") {
-      wx.showShareMenu({
-        withShareTicket: true
-      })
-      return {
-        title: "静聊",
-        path: "/pages/logs/logs",
-        success: function(res) {
-          fn.http({
-            param: {
-              func: "user.addShareLog",
-              user_id: app.globalData.user_id
-            },
-            success: function(res) {
-              that.is_vip();
-            }
-          })
-        }
-      }
-    }
-  },
-  // 判断是否是VIP
-  is_vip: function(res) {
-    var that = this;
-    fn.http({
-      param: {
-        func: "user.isVip",
-        user_id: app.globalData.user_id
-      },
-      success: function(res) {}
-    })
   },
   // 性别选择
   bindPickerChange: function(e) {
@@ -1501,13 +1038,6 @@ Page({
     })
     console.log(that.data.multiArray[e.detail.value])
   },
-  // // 姓名
-  // bindinputName(e) {
-  //   this.setData({
-  //     zcName: e.detail.value
-  //   })
-  //   console.log(this.data.zcName)
-  // },
   // 学历
   xlChange(res) {
     this.setData({
@@ -1638,18 +1168,27 @@ Page({
       })
     }
   },
-  // 获取首页消息
+  // 获取首页消息-大厅故事
   getIndexData: function(res) {
     var that = this;
     wx.showLoading({
       title: '加载中',
     })
-    var param = {
-      func: "chat.getNowTempletList",
-      user_id: app.globalData.user_id,
-      gender: app.globalData.gender,
-      page: that.data.gsPage
-    };
+    var param;
+    if (app.globalData.honglog == 1) {
+      param = {
+        func: "chat.getNowTempletList",
+        user_id: app.globalData.user_id,
+        page: that.data.gsPage
+      };
+    } else {
+      param = {
+        func: "chat.getNowTempletList",
+        user_id: app.globalData.user_id,
+        gender: app.globalData.gender,
+        page: that.data.gsPage
+      };
+    }
     fn.http({
       param: param,
       success: function(res) {
@@ -1662,17 +1201,15 @@ Page({
             zhezhao: false,
             is_loading: false,
           })
-          // 检查用户是否是新用户
-          // that.checkIsNew();
           setTimeout(function() {
             that.setData({
               bottomSpace: true
             })
           }, 1500)
         } else {
-          console.log("执行这里了")
+          // console.log("执行这里了")
           that.setData({
-            gsPage: 0
+            gsPage: 1
           })
           that.getIndexData();
         }
@@ -1714,38 +1251,7 @@ Page({
       list_t_id: listData.t_id
     })
   },
-  // 失去焦点修改模板消息
-  bindblur: function(res) {
-    var that = this;
-    var new_content = res.detail.value;
-    var listData = that.data.bjStoryData;
-    console.log(listData)
-    if (!new_content || new_content.length < 20 || new_content.length > 500) {
-      wx.showModal({
-        title: '提示',
-        content: '字数不少于20字不多于500字',
-        showCancel: false
-      })
-      return false;
-    }
-    fn.http({
-      param: {
-        func: "chat.updTemplet",
-        t_id: listData.t_id,
-        t_content: new_content,
-        user_id: app.globalData.user_id
-      },
-      success: function(res) {
-        // 刷新模板消息
-        that.getTempletList();
-        that.setData({
-          bjIndex: null,
-          list_idx: null,
-          infocus: true
-        })
-      }
-    })
-  },
+
   // 点击添加编辑故事
   addMuban(res) {
     var that = this;
@@ -1814,7 +1320,6 @@ Page({
         user_id: app.globalData.user_id
       },
       success: res => {
-        console.log(res);
         this.setData({
           TempletList: res
         })
@@ -1926,48 +1431,6 @@ Page({
     var random = Math.floor(Math.random() * 10);
     console.log(random)
     return random;
-  },
-  bindbt: function() {
-    console.log(1)
-    const that = this;
-    const {
-      msgData
-    } = that.data;
-    // console.log(msgData);
-    // that.setData({
-    //   msgData: [
-    //     { msg: "111111111111" },
-    //     { msg: "22222222222222" },
-    //     { msg: "3333333333333" },
-    //     { msg: "4444444444444" },
-    //     { msg: "55555555555555" },
-    //     { msg: "666666666666666666" },
-    //     { msg: "77777777777777" },
-    //     { msg: "88888888888888" },
-    //     { msg: "9999999999999999" }
-    //   ]
-    // })
-    const longth = msgData.length + 1;
-    const obj = {
-      content: `999999999999999${longth}00000`,
-      time: msgData[0].time,
-      color: getRandomColor()
-    };
-    console.log(obj)
-    msgData.splice(i % msgData.length, 0, obj)
-    console.log(msgData)
-    that.setData({
-      msgData,
-      isChangeBarrage: true
-    })
-  },
-  //设置动画运动的时间  
-  change: function(data) {
-    var that = this;
-    return data.map((item, index) => {
-      item.time = 5;
-      return item
-    })
   },
   // 发送故事
   sendStory(res) {

@@ -6,14 +6,6 @@
   align-items: center;
   /* padding: 0 30rpx; */
 }
-.header{
-  width:100%;
-  padding:0 30rpx;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:333;
-}
 .recordBox{
   height: 146rpx;
   width: 100%;

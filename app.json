@@ -3,7 +3,7 @@
     "pages/red/red",
     "pages/index/index",
     "pages/logs/logs",
-    
+    "pages/specification2/specification2",
     "pages/chat/chat",
     "pages/vip/vip",
     "pages/mine/mine",
@@ -45,7 +45,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "/images/red1.png",
         "selectedIconPath": "/images/red2.png",
-        "text": "缘分"
+        "text": "同城"
       },
       {
         "pagePath": "pages/record/record",

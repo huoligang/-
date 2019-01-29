@@ -38,7 +38,8 @@ color: transparent;
 }
 .topTitle{
   display: block;
-  margin-top: 20px;
+  height: 44px;
+  line-height: 44px;
   font-size: 34rpx;
   color: #333333;
   /* margin-left: 27rpx; */
@@ -58,15 +59,16 @@ color: transparent;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  
 }
 .header{
   width: 100%;
+  padding:0 30rpx;
   background: #f4f4f4;
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
   z-index: 333;
+  box-sizing: border-box;
 }
 .sexImg{
   width: 40rpx;

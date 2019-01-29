@@ -19,10 +19,9 @@ Page({
     that.setData({
       headerHeight: app.globalData.headerHeight,
       headerHeight2: app.globalData.headerHeight2,
+      mtHeader: app.globalData.mtHeader,
       user_id: app.globalData.user_id
     })
-    console.log(app.globalData.headerHeight)
-
   },
 
   /**
@@ -43,8 +42,6 @@ Page({
         that.setData({
           recordData: that.unique2(newData.concat(app.globalData.redData))
         })
-        console.log(that.data.recordData);
-        console.log(that.data.recordData.length)
       }
     })
   },

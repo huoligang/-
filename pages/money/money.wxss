@@ -12,6 +12,7 @@
   top: 0;
   left: 0;
   z-index: 333;
+  padding: 0;
 }
 .topTitle{
   display: flex;

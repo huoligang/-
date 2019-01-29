@@ -62,7 +62,7 @@ Page({
       // 获取被封时间
       that.checkProhibitSealTime();
     })
-    that.getSheng();
+    // that.getSheng();
     var ageData=[];
     that.setData({ageData:ageData})
   },
@@ -159,7 +159,8 @@ Page({
           success: function (res) {
             console.log(res);
             wx.hideLoading();
-            that.hongUser(res.district);
+            // that.hongUser(res.district);
+            that.userinfoServer();
           }
         })
       }, fail: function (res) {
@@ -174,6 +175,21 @@ Page({
       }
     })
   },
+
+  // 记录红娘的区域来的用户
+  userinfoServer(res) {
+    var that = this;
+    // console.log("111")
+    fn.http({
+      param: {
+        func: "user.userinfo_server",
+        user_id: app.globalData.user_id,
+      },
+      success: function (res) {
+      }
+    })
+  },
+
   // 记录红娘的区域来的用户
   hongUser(district){
     var that = this;

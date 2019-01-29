@@ -97,11 +97,11 @@ page{
   justify-content: space-between;
 }
 .btn1{
-  width: 170rpx;
-  height: 55rpx;
-  line-height: 55rpx;
+  width: 180rpx;
+  height: 60rpx;
+  line-height: 60rpx;
   background: linear-gradient(to right, #ee3dac , #fe767e);
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #ffffff;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;

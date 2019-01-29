@@ -25,7 +25,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      headerHeight: (app.globalData.headerHeight2 - 0) * 2 + 10 + 'rpx',
+      headerHeight: app.globalData.headerHeight,
+      mtHeader: app.globalData.mtHeader,
       headerHeight2: app.globalData.headerHeight2
     })
   },

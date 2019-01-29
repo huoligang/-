@@ -1,7 +1,7 @@
 <!--logs.wxml-->
 <!-- 第一个页面 -->
 <view class="container" wx:if="{{pageSort==1 && !is_lock}}" style='position: relative;'>
-  <image class='logsImg1' mode='widthFix' src='/images/lgbg.png'></image>
+  <image class='logsImg1' mode='widthFix' src='/images/lgbg.jpg'></image>
   <button class='btn-reset bottom-btn' open-type='getUserInfo' bindgetuserinfo="getUserInfo">
     <image class='qssImg' src='/images/kqyf.png'></image>
   </button>

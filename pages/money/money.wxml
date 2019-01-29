@@ -1,5 +1,5 @@
 <view class='header' style='height:{{headerHeight}};'>
-  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+  <view class='topTitle' style='margin-top:{{mtHeader}};' catchtap='backMine'>
     <image class='jianImg' src='/images/jian.png'></image>
     <text>余额</text>
   </view>
@@ -15,11 +15,11 @@
       <text class='moneyText2'>{{userData.recom}}</text>
     </view>
   </view>
-  <button class='btn-reset txBtn'>提现</button>
+  <button class='btn-reset txBtn' catchtap='tixian'>提现</button>
   <view class='moneyTab'>
     <text class='moneyTabList {{tabIndex==1?"moneyTabListActive":""}}' catchtap='tab' data-idx='1'>报名活动</text>
-    <!-- <text class='moneyTabList {{tabIndex==2?"moneyTabListActive":""}}' catchtap='tab' data-idx='2'>推广单身</text> -->
     <text class='moneyTabList {{tabIndex==3?"moneyTabListActive":""}}' catchtap='tab' data-idx='3'>红娘服务</text>
+    <text class='moneyTabList {{tabIndex==2?"moneyTabListActive":""}}' catchtap='tab' data-idx='2'>牵线服务</text>
   </view>
   <view class='tabSection'>
     <block wx:if="{{tabIndex==1}}" wx:for="{{userLogData}}" wx:key="">
@@ -27,6 +27,15 @@
         <text class='tab1Text1'>已报名</text>
         <text class='tab1Text2'>{{item.g_name}}</text>
         <text class='tab1Text3'>花费{{item.o_money}}元</text>
+      </view>
+    </block>
+    <block wx:if="{{tabIndex==2}}" wx:for="{{pullorderLog}}" wx:key="">
+      <view class='tab1List'>
+        <image class="hnfwImg" src='{{item.avatarurl}}'></image>
+        <text class='tab2Text1'>{{item.nickname}}</text>
+        <text class='tab2Text4'>通过您的牵线购买了红娘服务</text>
+        <!-- <text class='tab2Text2'>{{item.g_name}}</text> -->
+        <text class='tab1Text3'>收入{{item.o_money}}元</text>
       </view>
     </block>
     <block wx:if="{{tabIndex==3 && orderLogData!=''}}" wx:for="{{orderLogData}}" wx:key="">

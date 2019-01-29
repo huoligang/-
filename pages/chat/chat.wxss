@@ -16,7 +16,8 @@ page{
   top: 0;
   color: #ababad;
   background: transparent;
-  z-index: 666;
+  z-index: 555;
+  padding: 0;
 }
 .header_img{
   width: 80rpx;
@@ -621,8 +622,8 @@ border-top-right-radius: 0;
 }
 .plpHint{
   width: 670rpx;
-  height: 150rpx;
-  background: #ececec;
+  height: auto;
+  /* background: #ececec; */
   color: #b6b6b6;
   font-size: 24rpx;
   line-height: 34rpx;
@@ -630,20 +631,20 @@ border-top-right-radius: 0;
   margin: 0 auto;
   margin-bottom: 20rpx;
   box-sizing: border-box;
-  padding: 26rpx;
+  padding: 10rpx;
 }
 .plpHint2{
   width: 670rpx;
   height: auto;
-  background: #ececec;
-  color: #333333;
+  /* background: #ececec; */
+  color: #b6b6b6;
   font-size: 24rpx;
   line-height: 34rpx;
   border-radius: 6px;
   margin: 0 auto;
   margin-bottom: 20rpx;
   box-sizing: border-box;
-  padding: 26rpx;
+  padding: 10rpx;
   text-align: center;
 }
 .operationBox{
@@ -696,8 +697,8 @@ border-top-right-radius: 0;
   z-index: 667;
 }
 .popS1Text1{
-  font-size: 26rpx;
-  line-height: 40rpx;
+  font-size: 28rpx;
+  line-height: 42rpx;
   color: #333333;
   text-align: center;
   margin-top: 30rpx; 
@@ -827,4 +828,8 @@ border-top-right-radius: 0;
 .userNickText{
   font-size:32rpx;
   color: #99cc99;
+}
+.fbtBox .inputBox{
+  margin: 0 auto;
+  margin-bottom: 20rpx;
 }

@@ -2,21 +2,21 @@
 const fn = require('/utils/function.js');
 App({
   onLaunch: function (res) {
-    console.log(res.shareTicket);
-    console.log("上面ticket")
+    // console.log(res.shareTicket);
+    // console.log("上面ticket")
     var that = this;
     this.globalData.Gid = res.shareTicket;
     wx.getShareInfo({
       shareTicket: res.shareTicket,
       success(res){
-        console.log(res)
+        // console.log(res)
       }
     })
     if (wx.getUpdateManager) {
       const updateManager = wx.getUpdateManager()
       updateManager.onCheckForUpdate(function (res) {
         // 请求完新版本信息的回调
-        console.log(res.hasUpdate)
+        // console.log(res.hasUpdate)
       })
       updateManager.onUpdateReady(function () {
         wx.showModal({
@@ -44,7 +44,7 @@ App({
     fn.http({
       param: { func: "user.leaveTime", user_id: that.globalData.user_id },
       success: function (res) {
-        console.log(res);
+        // console.log(res);
       }
     })
   },
@@ -58,7 +58,7 @@ App({
     var pormise = new Promise(function (resolve, reject) {
       wx.login({
         success: function (res) {
-          console.log(res.code);
+          // console.log(res.code);
           var param;
           if (friend_user_id){
             param = { func: "user.login", code: res.code, friend_user_id: friend_user_id };
@@ -85,7 +85,7 @@ App({
                 fn.http({
                   param: { func: "user.me", user_id: that.globalData.user_id },
                   success: function (res) {
-                    console.log(res.userinfo)
+                    // console.log(res.userinfo)
                     that.globalData.balance = res.userinfo.balance//余额
                     that.globalData.glamour = res.userinfo.glamour//魅力值
                     that.globalData.user_name = res.userinfo.nickname//用户名称
@@ -104,7 +104,7 @@ App({
             })
           } else {
             resolve('')
-            console.log('获取用户登录态失败！' + res.errMsg)
+            // console.log('获取用户登录态失败！' + res.errMsg)
           }
         }
       })
@@ -117,7 +117,7 @@ App({
     fn.http({
       param: { func: "user.me",user_id:that.globalData.user_id },
       success: function (res) {
-        console.log(res.userinfo)
+        // console.log(res.userinfo)
         that.globalData.balance = res.userinfo.balance//余额
         that.globalData.glamour = res.userinfo.glamour//魅力值
         that.globalData.user_name = res.userinfo.name//用户名称
@@ -138,7 +138,7 @@ App({
     fn.http({
       param: { func: "share.getData", user_id: that.globalData.user_id },
       success: function (res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.globalData.shareData = res.data.data//分享数据
       }
     })

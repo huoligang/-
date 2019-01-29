@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showIndex:0
+    showIndex: 0
   },
 
   /**
@@ -20,11 +20,11 @@ Page({
       headerHeight2: app.globalData.headerHeight2
     })
   },
-  showThis(res){
+  showThis(res) {
     var that = this;
     var idx = res.currentTarget.dataset.idx;
     that.setData({
-      showIndex: that.data.showIndex == idx?0:idx
+      showIndex: that.data.showIndex == idx ? 0 : idx
     })
   },
   /**

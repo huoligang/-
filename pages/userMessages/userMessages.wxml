@@ -1,5 +1,5 @@
 <view class='header' style='height:{{headerHeight}};'>
-  <view class='topTitle' style='height:{{headerHeight2-20}}px;line-height:{{headerHeight2-20}}px;' catchtap='backMine'>
+  <view class='topTitle' style='margin-top:{{mtHeader}};' catchtap='backMine'>
     <image class='jianImg' src='/images/jian.png'></image>
     <text>修改资料</text>
   </view>
@@ -19,7 +19,7 @@
     <input type='text' class='input2' bindinput="bindinputName" value='{{username}}' disabled></input>
   </view>
   <view class='inputBox' style='height:140rpx;' catchtap='updateImg'>
-    <text class='text4'>图片</text>
+    <text class='text4'>照片</text>
     <input type='number' class='input2' bindinput="bindinputHeight" value='{{head?"已上传":"未上传"}}' disabled></input>
     <image class='userHeadImg' src='{{head}}' mode='aspectFill'></image>
   </view>
@@ -78,10 +78,67 @@
       <image class='test2Img' src='/images/test2.png'></image>
     </view>
   </picker>
+  <!-- 婚史 -->
+  <picker bindchange="gwChange" value="{{gwIndex}}" range="{{gw}}">
+    <view class='inputBox'>
+      <text class='text4'>过往</text>
+      <input type='number' class='input2' value='{{gw[gwIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
   <view class='box2' style='margin-top:30rpx;'>
     <text class='text6'>授权微信绑定的手机号<text style='font-size:22rpx;'>（仅红娘可见）</text></text>
     <button class='btn-reset btn2' open-type='getPhoneNumber' bindgetphonenumber="bindgetphonenumber">{{phoneState?"已授权":"授权"}}</button>
   </view>
-  <button class='btn-reset btn1' catchtap='compile'>保存</button>
+  <!-- 非必填项 -->
+  <picker bindchange="shengxiaoChange" value="{{shengxiaoIndex}}" range="{{shengxiao}}">
+    <view class='inputBox'>
+      <text class='text4'>生肖</text>
+      <input type='text' class='input2' value='{{shengxiao[shengxiaoIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="xingzuoChange" value="{{xingzuoIndex}}" range="{{xingzuo}}">
+    <view class='inputBox'>
+      <text class='text4'>星座</text>
+      <input type='text' class='input2' value='{{xingzuo[xingzuoIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <picker bindchange="xinggeChange" value="{{xinggeIndex}}" range="{{xingge}}">
+    <view class='inputBox'>
+      <text class='text4'>性格</text>
+      <input type='text' class='input2' value='{{xingge[xinggeIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>兄弟姐妹</text>
+    <input type='text' class='input2' bindinput='bindinputjiating' value='{{jiating}}'></input>
+  </view>
+  <picker bindchange="fumuChange" value="{{fumuIndex}}" range="{{fumu}}">
+    <view class='inputBox'>
+      <text class='text4'>父母</text>
+      <input type='text' class='input2' value='{{fumu[fumuIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <view class='inputBox'>
+    <text class='text4'>兴趣</text>
+    <input type='text' class='input2' bindinput='bindinputxingqu' value='{{xingqu}}'></input>
+  </view>
+  <picker bindchange="zhusuChange" value="{{zhusuIndex}}" range="{{zhusu}}">
+    <view class='inputBox'>
+      <text class='text4'>和谁住</text>
+      <input type='text' class='input2' value='{{zhusu[zhusuIndex]}}' disabled></input>
+      <image class='test2Img' src='/images/test2.png'></image>
+    </view>
+  </picker>
+  <!-- <view class='inputBox'>
+    <text class='text4'>和谁住</text>
+    <input type='text' class='input2' bindinput='bindinputzhusu' value='{{zhusu}}'></input>
+  </view> -->
+  
+  <button class='btn-reset btn1' catchtap='compile' style='margin-top:30rpx;'>保存</button>
 </view>
 <canvas style="width: 180px;height: 267px;background:#ffffff;position: fixed;top: -10000px;" canvas-id="shareFrends"></canvas>

@@ -17,14 +17,14 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      headerHeight: (app.globalData.headerHeight2 - 0) * 2 + 'rpx',
+      headerHeight:app.globalData.headerHeight,
+      mtHeader: app.globalData.mtHeader,
       headerHeight2: app.globalData.headerHeight2,
       honglog: app.globalData.honglog
     })
     fn.http({
       param: { func: 'share.saveImg', user_id: app.globalData.user_id },
       success: function (res) {
-        console.log(res);
         that.setData({
           saveImg:res.img
         })
@@ -52,7 +52,7 @@ Page({
                 wx.hideLoading();
                 wx.showModal({
                   title: '提示',
-                  content: '成功保存到相册 ，发朋友圈扫码征婚',
+                  content: '成功保存到相册',
                   showCancel: false,
                   success: function (res) { }
                 })
@@ -167,7 +167,6 @@ Page({
       success: function (res) {
         var userMyself = res.userinfo;
         app.globalData.cs = res.userinfo;
-        console.log(userMyself)
         that.setData({
           balance: userMyself.balance,//余额
           glamour: userMyself.glamour,//魅力值
@@ -206,7 +205,8 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    // 获取用户信息
+    app.getUserMsg();
   },
 
   /**
@@ -247,7 +247,6 @@ Page({
     fn.http({
       param: { func: "chat.getTempletList", user_id: app.globalData.user_id },
       success: res => {
-        console.log(res);
         this.setData({
           TempletList: res
         })
@@ -327,6 +326,11 @@ Page({
         addmubanState: false,
         bottomState: true
       })
+    } else if (that.data.bjStoryState){
+      that.setData({
+        bjStoryState: false,
+        bottomState: true
+      })
     } else {
       that.setData({
         zhezhao: false,
@@ -350,6 +354,38 @@ Page({
     that.setData({
       bjIndex: idx,
       infocus: false
+    })
+  },
+  // 失去焦点修改模板消息
+  bindblur: function (res) {
+    var that = this;
+    var new_content = res.detail.value;
+    var listData = that.data.bjStoryData;
+    console.log(listData)
+    if (!new_content || new_content.length < 20 || new_content.length > 500) {
+      wx.showModal({
+        title: '提示',
+        content: '字数不少于20字不多于500字',
+        showCancel: false
+      })
+      return false;
+    }
+    fn.http({
+      param: {
+        func: "chat.updTemplet",
+        t_id: listData.t_id,
+        t_content: new_content,
+        user_id: app.globalData.user_id
+      },
+      success: function (res) {
+        // 刷新模板消息
+        that.getTempletList();
+        that.setData({
+          bjIndex: null,
+          list_idx: null,
+          infocus: true
+        })
+      }
     })
   },
   // 点击上PK台
@@ -420,6 +456,12 @@ Page({
   specification(res){
     wx.navigateTo({
       url: '../specification/specification',
+    })
+  },
+  // 红娘服务
+  specification2(res) {
+    wx.navigateTo({
+      url: '../specification2/specification2',
     })
   }
 })

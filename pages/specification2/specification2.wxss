@@ -52,6 +52,19 @@
   color: #8e8e8e;
   padding-bottom: 20rpx;
 }
+.xzText2{
+  width: 666rpx;
+  font-size: 32rpx;
+  line-height: 48rpx;
+  padding-bottom: 20rpx;
+}
+.xzText3{
+  width: 666rpx;
+  font-size: 32rpx;
+  line-height: 48rpx;
+  padding-bottom: 20rpx;
+  text-indent: 64rpx;
+}
 .z180{
   transform: rotate(180deg);
 }
