@@ -14,7 +14,7 @@
             <view class='hnNameBox'>
               <view class='hnNameText'>
                 <text>{{redData[0].nickname}}</text>
-                <text class='signText' wx:if="{{redData[0].hongtype!=null}}">{{redData[0].hongtype}}</text>
+                <text class='signText' wx:if="{{redData[0].hongtype!=''}}">{{redData[0].hongtype}}</text>
               </view>
               <text class='hnDistance' wx:if="{{redData[0].user_id!='148'}}">红娘距您:{{redData[0].distance}}km</text>
             </view>

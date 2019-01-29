@@ -394,10 +394,10 @@ Page({
       }, function() {
         var server = app.globalData.server;
         var server2 = server.splice(0, 1);
-        app.globalData.server = server;
-        if (app.globalData.server.length==1){//最后一条消息删除
+        app.globalData.server = server2;
+        if (server2=="") {//最后一条消息删除
           fn.http({
-            param: {func: "user.read_server",user_id: app.globalData.user_id},
+            param: { func: "user.read_server", user_id: app.globalData.user_id },
             success: function (res) {}
           })
         }
